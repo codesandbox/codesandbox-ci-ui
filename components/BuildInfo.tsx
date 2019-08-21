@@ -56,6 +56,15 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const fetchBuildDetails = async () => {
     const res = await getBuildDetails(username, repo, prNumber, build.id);
 
+    if (
+      buildDetails &&
+      res.build.status !== buildDetails.status &&
+      (buildDetails.status === "queued" || buildDetails.status === "running")
+    ) {
+      // Refresh the whole ui as the build has changed its status
+      Router.replace(document.location.pathname);
+    }
+
     setBuildDetails(res.build);
   };
 
@@ -70,7 +79,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   useEffect(() => {
     function tick() {
       // @ts-ignore
-      if (build.status === "running") {
+      if (build.status === "running" || build.status === "queued") {
         fetchBuildDetails();
       }
     }
