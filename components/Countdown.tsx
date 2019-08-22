@@ -6,6 +6,7 @@ interface Props {
 }
 
 export const Countdown = ({ startedAt }: Props) => {
+  // eslint-disable-next-line
   const [_render, forceRender] = React.useState();
 
   useEffect(() => {

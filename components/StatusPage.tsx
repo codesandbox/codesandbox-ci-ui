@@ -1,14 +1,13 @@
 import React from "react";
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import JavascriptTimeAgo from "javascript-time-ago";
 // The desired locales.
 import en from "javascript-time-ago/locale/en";
 
-import { Header, HEADER_HEIGHT } from "./Header";
+import { HEADER_HEIGHT } from "./Header";
 import { StatusListItem } from "./StatusListItem";
 import { StatusList } from "./StatusList";
 import { Details } from "./Details";
-import { colors } from "../theme/colors";
 import { IPR, IBuild, getPrs, getBuilds } from "../utils/api";
 import { Layout } from "./Layout";
 import { SkeletonStatusPage } from "./SkeletonStatusPage";
@@ -19,17 +18,6 @@ JavascriptTimeAgo.locale(en);
 const Content = styled.div`
   display: flex;
   height: calc(100% - ${HEADER_HEIGHT});
-`;
-
-const NotFoundError = styled.div`
-  font-size: 2rem;
-  display: flex;
-  height: calc(100% - ${HEADER_HEIGHT});
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.6;
 `;
 
 export interface StatusPageProps {
@@ -72,6 +60,7 @@ const StatusPage = ({
         <p>You haven't created any Pull Requests yet.</p>
         <a
           target="_blank"
+          rel="noreferrer noopener"
           style={{ color: "#6CC7F6" }}
           href="https://u2edh.csb.app"
         >

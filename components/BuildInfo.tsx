@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import Router from "next/router";
 import { StatusIcon } from "./StatusIcon";
 import styled from "styled-components";
@@ -65,7 +65,7 @@ interface Props {
 export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const [buildDetails, setBuildDetails] = React.useState<IBuildDetails>();
 
-  const fetchBuildDetails = async () => {
+  const fetchBuildDetails = useCallback(async () => {
     const res = await getBuildDetails(username, repo, prNumber, build.id);
 
     if (
@@ -78,7 +78,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
     }
 
     setBuildDetails(res.build);
-  };
+  }, [build.id, buildDetails, prNumber, repo, username]);
 
   useEffect(() => {
     fetchBuildDetails();
@@ -86,7 +86,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
     return () => {
       setBuildDetails(undefined);
     };
-  }, [username, repo, prNumber, build.id, build.status]);
+  }, [username, repo, prNumber, build.id, build.status, fetchBuildDetails]);
 
   const usedBuild = buildDetails || build;
   useEffect(() => {
@@ -99,7 +99,14 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
 
     let id = setInterval(tick, 3000);
     return () => clearInterval(id);
-  }, [username, repo, prNumber, usedBuild.id, usedBuild.status]);
+  }, [
+    username,
+    repo,
+    prNumber,
+    usedBuild.id,
+    usedBuild.status,
+    fetchBuildDetails
+  ]);
 
   return (
     <Container>

@@ -1,3 +1,4 @@
+import React from "react";
 import { SkeletonStatusPage } from "../components/SkeletonStatusPage";
 
 export default () => (
@@ -7,6 +8,7 @@ export default () => (
       target="_blank"
       style={{ color: "#6CC7F6" }}
       href="https://u2edh.csb.app"
+      rel="noreferrer noopener"
     >
       Learn more
     </a>
