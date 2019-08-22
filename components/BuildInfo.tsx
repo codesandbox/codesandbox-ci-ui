@@ -64,12 +64,9 @@ interface Props {
 
 export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const [buildDetails, setBuildDetails] = React.useState<IBuildDetails>();
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const fetchBuildDetails = useCallback(async () => {
-    setIsLoading(true);
     const res = await getBuildDetails(username, repo, prNumber, build.id);
-    setIsLoading(false);
 
     const oldStatus = buildDetails ? buildDetails.status : build.status;
     if (
@@ -93,10 +90,16 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   ]);
 
   useEffect(() => {
+    return () => {
+      setBuildDetails(undefined);
+    };
+  }, [build.id]);
+
+  useEffect(() => {
     fetchBuildDetails();
   }, [fetchBuildDetails]);
 
-  const usedBuild = isLoading ? build : buildDetails || build;
+  const usedBuild = buildDetails || build;
   useEffect(() => {
     function tick() {
       // @ts-ignore
