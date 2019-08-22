@@ -3,9 +3,11 @@ import styled from "styled-components";
 
 import Logo from "@codesandbox/common/lib/components/Logo";
 
+export const HEADER_HEIGHT = "2.5rem";
+
 const Container = styled.header`
   width: 100%;
-  height: 2.5rem;
+  height: ${HEADER_HEIGHT};
   display: flex;
   align-items: center;
   font-size: 0.8125rem;

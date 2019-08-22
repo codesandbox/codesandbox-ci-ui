@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import Ansi from "ansi-to-react";
 import { Status } from "../utils/api";
 import { colors } from "../theme/colors";
 import { secondsToCounter } from "../utils/countdown";
+import { BuildInfoItem } from "./BuildInfoItem";
 
 interface Props {
   status: Status;
@@ -24,7 +24,7 @@ const getStatusInfo = (status: Status, duration: number) => {
     case "succeeded":
       return {
         message: "Finished!",
-        backgroundColor: colors.bg2,
+        backgroundColor: colors.bg3,
         color: "white"
       };
     case "running":
@@ -46,41 +46,9 @@ const getStatusInfo = (status: Status, duration: number) => {
   }
 };
 
-const Header = styled.div<{ backgroundColor: string; color: string }>`
-  display: flex;
-  align-items: center;
-  padding-left: 1rem;
-  height: 2rem;
-  width: 100%;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  font-size: 0.75rem;
-
-  background-color: ${props => props.backgroundColor};
-  color: ${props => props.color};
-
-  border: 1px solid ${props => props.theme.bg3};
-`;
-
-const Contents = styled.pre`
-  background-color: ${props => props.theme.bg1};
-  padding: 0.5rem 1rem;
-  font-size: 0.8125rem;
-  border: 1px solid ${props => props.theme.bg3};
-  border-top: 0;
-
-  margin: 0;
-
-  max-height: 23rem;
-  overflow-y: auto;
-  code {
-    font-family: "Menlo", monospace;
-  }
-`;
-
 export const LogsContainer = ({ status, duration, log }: Props) => {
   const statusInfo = getStatusInfo(status, duration);
-  const contentsRef = React.useRef<HTMLPreElement>();
+  const contentsRef = React.useRef<HTMLDivElement>();
 
   useEffect(() => {
     if (contentsRef.current) {
@@ -89,34 +57,50 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
   }, [log, contentsRef]);
 
   return (
-    <>
-      <Header
-        color={statusInfo.color}
-        backgroundColor={statusInfo.backgroundColor}
+    <BuildInfoItem
+      title={statusInfo.message}
+      headerColor={statusInfo.color}
+      headerBGColor={statusInfo.backgroundColor}
+      contentsRef={contentsRef}
+    >
+      <div
+        style={{
+          height: "23rem",
+          position: "relative"
+        }}
       >
-        {statusInfo.message}
-      </Header>
-      <Contents ref={contentsRef}>
-        {log
-          ? log.split("\n").map((line, i) =>
-              line.startsWith("+") ? (
-                <code key={i} style={{ color: "white", fontWeight: 600 }}>
-                  {line}
-                  <br />
-                </code>
-              ) : (
-                <span style={{ color: "#ccc" }}>
-                  <Ansi key={i} linkify={false}>
+        <pre
+          style={{
+            margin: 0,
+            padding: "0.5rem 1rem",
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+          }}
+        >
+          {log
+            ? log.split("\n").map((line, i) =>
+                line.startsWith("+") ? (
+                  <code key={i} style={{ color: "white", fontWeight: 600 }}>
                     {line}
-                  </Ansi>
-                  <br />
-                </span>
+                    <br />
+                  </code>
+                ) : (
+                  <span key={i} style={{ color: "#ccc" }}>
+                    <Ansi key={i} linkify={false}>
+                      {line}
+                    </Ansi>
+                    <br />
+                  </span>
+                )
               )
-            )
-          : status === "queued"
-          ? "Waiting to be built..."
-          : "Loading..."}
-      </Contents>
-    </>
+            : status === "queued"
+            ? "Waiting to be built..."
+            : "Loading..."}
+        </pre>
+      </div>
+    </BuildInfoItem>
   );
 };

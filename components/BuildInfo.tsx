@@ -7,8 +7,12 @@ import { IBuild, IBuildDetails, getBuildDetails } from "../utils/api";
 import { LogsContainer } from "./LogsContainer";
 import { secondsToCounter } from "../utils/countdown";
 import { Countdown } from "./Countdown";
+import { SandboxList } from "./SandboxList";
 
-const Container = styled.div``;
+const Container = styled.div`
+  overflow-y: auto;
+  height: 100%;
+`;
 
 const BuildDetails = styled.div`
   margin-top: 1.5rem;
@@ -149,6 +153,8 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
       </TitleContainer>
 
       <BuildDetails>
+        <SandboxList style={{ marginBottom: "1rem" }} />
+
         <LogsContainer
           duration={usedBuild.duration}
           status={usedBuild.status}

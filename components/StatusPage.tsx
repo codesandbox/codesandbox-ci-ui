@@ -4,7 +4,7 @@ import JavascriptTimeAgo from "javascript-time-ago";
 // The desired locales.
 import en from "javascript-time-ago/locale/en";
 
-import { Header } from "./Header";
+import { Header, HEADER_HEIGHT } from "./Header";
 import { StatusListItem } from "./StatusListItem";
 import { StatusList } from "./StatusList";
 import { Details } from "./Details";
@@ -16,7 +16,7 @@ JavascriptTimeAgo.locale(en);
 
 const Content = styled.div`
   display: flex;
-  height: 100%;
+  height: calc(100% - ${HEADER_HEIGHT});
 `;
 
 const GlobalStyles = createGlobalStyle`
