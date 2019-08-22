@@ -39,6 +39,7 @@ export interface StatusPageProps {
   selectedBuildId: number;
   builds?: IBuild[];
   notFound?: boolean;
+  error?: boolean;
 }
 
 const StatusPage = ({
@@ -48,15 +49,18 @@ const StatusPage = ({
   selectedPrNumber = prs && prs[0].number,
   selectedBuildId,
   builds,
-  notFound
+  notFound,
+  error
 }: StatusPageProps) => {
-  if (notFound) {
+  if (notFound || error) {
     return (
       <Layout title="Not Found">
         <NotFoundError>
           <div style={{ maxWidth: 900 }}>
-            We could not find the repository you were looking for, have you
-            installed the GitHub App?
+            {notFound
+              ? `We could not find the repository you were looking for, have you
+            installed the GitHub App?`
+              : `We just got an error, please retry in a couple minutes!`}
           </div>
         </NotFoundError>
       </Layout>
@@ -122,7 +126,7 @@ const StatusPage = ({
 StatusPage.getInitialProps = async ({
   query,
   res
-}): Promise<StatusPageProps | { notFound: true }> => {
+}): Promise<StatusPageProps | { notFound: true } | { error: true }> => {
   try {
     const { username, repo } = query;
 
@@ -164,7 +168,11 @@ StatusPage.getInitialProps = async ({
       res.status = e.response.status;
     }
 
-    return { notFound: true };
+    if (e.response.status === 404) {
+      return { notFound: true };
+    } else {
+      return { error: true };
+    }
   }
 };
 
