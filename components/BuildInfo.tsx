@@ -136,7 +136,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
             </Link>{" "}
             opened pull request{" "}
             <Link
-              href={`https://github.com/${username}/${repo}/pulls/${prNumber}`}
+              href={`https://github.com/${username}/${repo}/pull/${prNumber}`}
             >
               #{prNumber}
             </Link>{" "}
