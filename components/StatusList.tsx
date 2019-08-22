@@ -18,6 +18,7 @@ const Header = styled.div`
   color: white;
   font-size: 0.8125rem;
 
+  color: ${props => props.theme.gray};
   background-color: ${props => props.theme.bg2};
 `;
 

@@ -38,6 +38,18 @@ const GlobalStyles = createGlobalStyle`
     font-family: inherit;
   }
 
+  a {
+    transition: 0.3s ease color;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+    }
+  }
+
   * {
     box-sizing: border-box;
   }

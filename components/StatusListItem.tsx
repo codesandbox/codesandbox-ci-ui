@@ -103,3 +103,31 @@ export const StatusListItem = ({
     </Link>
   );
 };
+
+const EmptyStatus = styled.div`
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  background-color: ${props => props.theme.bg3};
+`;
+
+const EmptyText = styled.div`
+  border-radius: 2px;
+  width: 12rem;
+  height: 1rem;
+  margin-left: 1.5rem;
+  background-color: ${props => props.theme.bg3};
+`;
+
+export const StatusListSkeletonItem = () => (
+  <div>
+    <Container selected={false}>
+      <StatusContainer>
+        <EmptyStatus />
+      </StatusContainer>
+      <InfoContainer>
+        <EmptyText />
+      </InfoContainer>
+    </Container>
+  </div>
+);
