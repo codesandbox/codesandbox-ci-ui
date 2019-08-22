@@ -26,10 +26,20 @@ export type IBuild = (NotStartedBuild | StartedBuild) & {
   updatedAt: string;
 };
 
+export interface ISandbox {
+  name: string;
+  url: string;
+}
+
+export interface IPackage {
+  name: string;
+  url: string;
+}
+
 export type IBuildDetails = IBuild & {
   log: string;
-  sandboxes: [];
-  packages: [];
+  sandboxes: ISandbox[];
+  packages: IPackage[];
 };
 
 export interface IPR {

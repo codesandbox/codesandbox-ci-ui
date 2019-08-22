@@ -8,6 +8,7 @@ import { LogsContainer } from "./LogsContainer";
 import { secondsToCounter } from "../utils/countdown";
 import { Countdown } from "./Countdown";
 import { SandboxList } from "./SandboxList";
+import { PackagesList } from "./PackagesList";
 
 const Container = styled.div`
   overflow-y: auto;
@@ -153,7 +154,23 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
       </TitleContainer>
 
       <BuildDetails>
-        <SandboxList style={{ marginBottom: "1rem" }} />
+        {buildDetails &&
+          buildDetails.sandboxes &&
+          buildDetails.sandboxes.length > 0 && (
+            <SandboxList
+              style={{ marginBottom: "1rem" }}
+              sandboxes={buildDetails.sandboxes}
+            />
+          )}
+
+        {buildDetails &&
+          buildDetails.packages &&
+          buildDetails.packages.length > 0 && (
+            <PackagesList
+              style={{ marginBottom: "1rem" }}
+              packages={buildDetails.packages}
+            />
+          )}
 
         <LogsContainer
           duration={usedBuild.duration}
