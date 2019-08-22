@@ -64,31 +64,39 @@ interface Props {
 
 export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const [buildDetails, setBuildDetails] = React.useState<IBuildDetails>();
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const fetchBuildDetails = useCallback(async () => {
+    setIsLoading(true);
     const res = await getBuildDetails(username, repo, prNumber, build.id);
+    setIsLoading(false);
 
+    const oldStatus = buildDetails ? buildDetails.status : build.status;
     if (
-      buildDetails &&
-      res.build.status !== buildDetails.status &&
-      (buildDetails.status === "queued" || buildDetails.status === "running")
+      oldStatus &&
+      res.build.status !== oldStatus &&
+      (oldStatus === "queued" || oldStatus === "running")
     ) {
       // Refresh the whole ui as the build has changed its status
       Router.replace(document.location.pathname);
     }
 
     setBuildDetails(res.build);
-  }, [build.id, buildDetails, prNumber, repo, username]);
+    // eslint-disable-next-line
+  }, [
+    prNumber,
+    repo,
+    username,
+    build.id,
+    // eslint-disable-next-line
+    buildDetails ? buildDetails.status : build.status
+  ]);
 
   useEffect(() => {
     fetchBuildDetails();
+  }, [fetchBuildDetails]);
 
-    return () => {
-      setBuildDetails(undefined);
-    };
-  }, [username, repo, prNumber, build.id, build.status, fetchBuildDetails]);
-
-  const usedBuild = buildDetails || build;
+  const usedBuild = isLoading ? build : buildDetails || build;
   useEffect(() => {
     function tick() {
       // @ts-ignore
@@ -99,14 +107,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
 
     let id = setInterval(tick, 3000);
     return () => clearInterval(id);
-  }, [
-    username,
-    repo,
-    prNumber,
-    usedBuild.id,
-    usedBuild.status,
-    fetchBuildDetails
-  ]);
+  }, [usedBuild.status, fetchBuildDetails]);
 
   return (
     <Container>
