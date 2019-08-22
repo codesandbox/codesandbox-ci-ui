@@ -9,14 +9,7 @@ import { StatusListItem } from "./StatusListItem";
 import { StatusList } from "./StatusList";
 import { Details } from "./Details";
 import { colors } from "../theme/colors";
-import {
-  IPR,
-  IBuild,
-  getPrs,
-  getBuilds,
-  IBuildDetails,
-  getBuildDetails
-} from "../utils/api";
+import { IPR, IBuild, getPrs, getBuilds } from "../utils/api";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);

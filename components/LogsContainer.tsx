@@ -42,7 +42,7 @@ const getStatusInfo = (status: Status, duration: number) => {
         color: "white"
       };
     case "queued":
-      return { message: "Queued", backgroundColor: "red" };
+      return { message: "Queued", backgroundColor: "white", color: "black" };
   }
 };
 
@@ -113,6 +113,8 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
                 </span>
               )
             )
+          : status === "queued"
+          ? "Waiting to be built..."
           : "Loading..."}
       </Contents>
     </>

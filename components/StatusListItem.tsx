@@ -28,15 +28,16 @@ const Container = styled.a<{ selected: boolean | undefined }>`
 
   border-bottom: 1px solid ${props => props.theme.bg3};
 
-  &:hover {
-    background-color: ${props => props.theme.bg3};
-  }
-
   ${props =>
-    props.selected &&
-    css`
-      background-color: ${props => props.theme.bg3};
-    `}
+    props.selected
+      ? css`
+          background-color: ${props => props.theme.bg3};
+        `
+      : css`
+          &:hover {
+            background-color: #111111;
+          }
+        `}
 `;
 
 const Title = styled.div`

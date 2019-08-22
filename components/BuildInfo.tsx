@@ -126,17 +126,13 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         </div>
       </TitleContainer>
 
-      {usedBuild.status === "queued"
-        ? "Queued"
-        : usedBuild && (
-            <BuildDetails>
-              <LogsContainer
-                duration={usedBuild.duration}
-                status={usedBuild.status}
-                log={usedBuild["log"]}
-              />
-            </BuildDetails>
-          )}
+      <BuildDetails>
+        <LogsContainer
+          duration={usedBuild.duration}
+          status={usedBuild.status}
+          log={usedBuild["log"]}
+        />
+      </BuildDetails>
     </Container>
   );
 };
