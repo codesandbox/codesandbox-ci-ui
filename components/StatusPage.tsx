@@ -11,6 +11,7 @@ import { Details } from "./Details";
 import { colors } from "../theme/colors";
 import { IPR, IBuild, getPrs, getBuilds } from "../utils/api";
 import { Layout } from "./Layout";
+import { SkeletonStatusPage } from "./SkeletonStatusPage";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -54,16 +55,29 @@ const StatusPage = ({
 }: StatusPageProps) => {
   if (notFound || error) {
     return (
-      <Layout title="Not Found">
-        <NotFoundError>
-          <div style={{ maxWidth: 900 }}>
-            {notFound
-              ? `We could not find the repository you were looking for, have you
+      <SkeletonStatusPage>
+        <p style={{ maxWidth: 600, textAlign: "center", lineHeight: 1.6 }}>
+          {notFound
+            ? `We could not find the repository you were looking for, have you
             installed the GitHub App?`
-              : `We just got an error, please retry in a couple minutes!`}
-          </div>
-        </NotFoundError>
-      </Layout>
+            : `We just got an error, please retry in a couple minutes!`}
+        </p>
+      </SkeletonStatusPage>
+    );
+  }
+
+  if (prs.length === 0) {
+    return (
+      <SkeletonStatusPage>
+        <p>You haven't created any Pull Requests yet.</p>
+        <a
+          target="_blank"
+          style={{ color: "#6CC7F6" }}
+          href="https://u2edh.csb.app"
+        >
+          Learn more
+        </a>
+      </SkeletonStatusPage>
     );
   }
 
