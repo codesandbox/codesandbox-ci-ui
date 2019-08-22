@@ -39,8 +39,15 @@ const StyledTimeAgo = styled(ReactTimeAgo)`
   color: ${props => props.theme.gray};
 `;
 
-const White = styled.span`
-  color: white;
+const Link = styled.a.attrs({ target: "_blank", rel: "noreferrer noopener" })`
+  transition: 0.3s ease color;
+  color: rgba(255, 255, 255, 0.8);
+
+  text-decoration: none;
+
+  &:hover {
+    color: white;
+  }
 `;
 
 interface Props {
@@ -120,8 +127,23 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
               </>
             )}
             <br />
-            <White>{usedBuild.commitAuthor}</White> opened pull request{" "}
-            <White>#{prNumber}</White> to <White>master</White>
+            <Link href={`https://github.com/${usedBuild.commitAuthor}`}>
+              {usedBuild.commitAuthor}
+            </Link>{" "}
+            opened pull request{" "}
+            <Link
+              href={`https://github.com/${username}/${repo}/pulls/${prNumber}`}
+            >
+              #{prNumber}
+            </Link>{" "}
+            to{" "}
+            <Link
+              href={`https://github.com/${username}/${repo}/tree/${
+                usedBuild.targetBranch
+              }`}
+            >
+              {usedBuild.targetBranch}
+            </Link>
           </Description>
         </div>
       </TitleContainer>
