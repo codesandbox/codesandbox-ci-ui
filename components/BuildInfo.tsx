@@ -88,19 +88,18 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
     };
   }, [username, repo, prNumber, build.id, build.status]);
 
+  const usedBuild = buildDetails || build;
   useEffect(() => {
     function tick() {
       // @ts-ignore
-      if (build.status === "running" || build.status === "queued") {
+      if (usedBuild.status === "running" || usedBuild.status === "queued") {
         fetchBuildDetails();
       }
     }
 
     let id = setInterval(tick, 3000);
     return () => clearInterval(id);
-  }, [username, repo, prNumber, build.id, build.status]);
-
-  const usedBuild = buildDetails || build;
+  }, [username, repo, prNumber, usedBuild.id, usedBuild.status]);
 
   return (
     <Container>

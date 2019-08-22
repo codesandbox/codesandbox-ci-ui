@@ -21,15 +21,14 @@ const StyledLogo = styled(Logo)`
 `;
 
 interface Props {
-  username: string;
-  repo: string;
+  title: string;
 }
 
-export const Header = ({ username, repo }: Props) => {
+export const Header = ({ title }: Props) => {
   return (
     <Container>
       <StyledLogo />
-      {username}/{repo}
+      {title}
     </Container>
   );
 };
