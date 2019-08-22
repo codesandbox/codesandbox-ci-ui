@@ -25,7 +25,7 @@ export const SandboxList = ({ style, sandboxes }: Props) => {
           key={sandbox.url}
           i={i}
         >
-          <StyledLogo /> {sandbox.name}
+          <StyledLogo /> {sandbox.title}
         </BuildListItem>
       ))}
     </BuildInfoItem>

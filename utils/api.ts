@@ -27,7 +27,7 @@ export type IBuild = (NotStartedBuild | StartedBuild) & {
 };
 
 export interface ISandbox {
-  name: string;
+  title: string;
   url: string;
 }
 
