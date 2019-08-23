@@ -45,9 +45,6 @@ const StatusPage = ({
   if (notFound || error) {
     return (
       <SkeletonStatusPage>
-        <Head>
-          <title>Not Found - CodeSandbox CI</title>
-        </Head>
         <p style={{ maxWidth: 600, textAlign: "center", lineHeight: 1.6 }}>
           {notFound
             ? `We could not find the repository you were looking for, have you
@@ -61,11 +58,6 @@ const StatusPage = ({
   if (prs.length === 0) {
     return (
       <SkeletonStatusPage>
-        <Head>
-          <title>
-            {username}/{repo} - CodeSandbox CI
-          </title>
-        </Head>
         <p>You haven't created any Pull Requests yet.</p>
         <a
           target="_blank"

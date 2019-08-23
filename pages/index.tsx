@@ -1,12 +1,8 @@
 import React from "react";
-import { Head } from "next/document";
 import { SkeletonStatusPage } from "../components/SkeletonStatusPage";
 
 export default () => (
   <SkeletonStatusPage>
-    <Head>
-      <title>CodeSandbox CI</title>
-    </Head>
     <p>Welcome to CodeSandbox CI</p>
     <a
       target="_blank"
