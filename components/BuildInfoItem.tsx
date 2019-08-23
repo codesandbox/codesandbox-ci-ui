@@ -47,7 +47,7 @@ const Contents = styled.div`
 
 const StyledCollapseIcon = styled(CollapseIcon)<{ show: boolean }>`
   transition: 0.3s ease transform;
-  transform: rotateZ(${props => (props.show ? 0 : 90)}deg);
+  transform: rotateZ(${props => (props.show ? 0 : -90)}deg);
 `;
 
 interface Props {
