@@ -7,7 +7,6 @@ const Container = styled.div`
   height: 100%;
 
   border-right: 1px solid ${props => props.theme.bg3};
-  overflow-y: auto;
 `;
 
 const Header = styled.div`
@@ -29,6 +28,8 @@ interface Props {
 export const StatusList: React.FC<Props> = ({ title, children }) => (
   <Container>
     <Header>{title}</Header>
-    {children}
+    <div style={{ height: "100%", width: "100%", overflowY: "auto" }}>
+      {children}
+    </div>
   </Container>
 );
