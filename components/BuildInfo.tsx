@@ -9,9 +9,9 @@ import { secondsToCounter } from "../utils/countdown";
 import { Countdown } from "./Countdown";
 import { SandboxList } from "./SandboxList";
 import { PackagesList } from "./PackagesList";
+import { BuildInfoItemSkeleton } from "./BuildInfoItem";
 
 const Container = styled.div`
-  overflow-y: auto;
   height: 100%;
 `;
 
@@ -168,23 +168,35 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
       </TitleContainer>
 
       <BuildDetails>
-        {buildDetails &&
-          buildDetails.sandboxes &&
-          buildDetails.sandboxes.length > 0 && (
-            <SandboxList
-              style={{ marginBottom: "1rem" }}
-              sandboxes={buildDetails.sandboxes}
-            />
-          )}
+        {buildDetails && buildDetails.sandboxes != null
+          ? buildDetails.sandboxes.length > 0 && (
+              <SandboxList
+                style={{ marginBottom: "1rem" }}
+                sandboxes={buildDetails.sandboxes}
+              />
+            )
+          : build &&
+            build.status === "succeeded" && (
+              <BuildInfoItemSkeleton
+                style={{ marginBottom: "1rem" }}
+                title="Loading Sandboxes..."
+              />
+            )}
 
-        {buildDetails &&
-          buildDetails.packages &&
-          buildDetails.packages.length > 0 && (
-            <PackagesList
-              style={{ marginBottom: "1rem" }}
-              packages={buildDetails.packages}
-            />
-          )}
+        {buildDetails && buildDetails.packages != null
+          ? buildDetails.packages.length > 0 && (
+              <PackagesList
+                style={{ marginBottom: "1rem" }}
+                packages={buildDetails.packages}
+              />
+            )
+          : build &&
+            build.status === "succeeded" && (
+              <BuildInfoItemSkeleton
+                style={{ marginBottom: "1rem" }}
+                title="Loading Packages..."
+              />
+            )}
 
         <LogsContainer
           duration={usedBuild.duration}

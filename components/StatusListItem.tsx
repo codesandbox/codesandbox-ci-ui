@@ -47,6 +47,12 @@ const Title = styled.div`
 
 const Description = styled.div`
   font-weight: 400;
+
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const StatusContainer = styled.div`

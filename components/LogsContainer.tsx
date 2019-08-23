@@ -96,7 +96,7 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
                     <br />
                   </code>
                 ) : (
-                  <span key={i} style={{ color: "#ccc" }}>
+                  <span key={i} style={{ color: "#ccc", display: "block" }}>
                     <Ansi key={i} linkify={false}>
                       {line}
                     </Ansi>

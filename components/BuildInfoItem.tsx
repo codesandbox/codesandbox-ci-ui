@@ -4,9 +4,7 @@ import { Animate } from "react-show";
 
 import { CollapseIcon } from "./icons/Collapse";
 
-import { colors } from "../theme/colors";
-
-const Header = styled.div<{ backgroundColor: string; color: string }>`
+const Header = styled.div<{ backgroundColor?: string; color?: string }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -17,8 +15,8 @@ const Header = styled.div<{ backgroundColor: string; color: string }>`
   border-top-right-radius: 4px;
   font-size: 0.8125rem;
 
-  background-color: ${props => props.backgroundColor};
-  color: ${props => props.color};
+  background-color: ${props => props.backgroundColor || props.theme.bg3};
+  color: ${props => props.color || "white"};
 
   border: 1px solid ${props => props.theme.bg3};
 `;
@@ -75,10 +73,7 @@ export const BuildInfoItem: React.FC<Props> = ({
   const [show, setShow] = React.useState(expandedByDefault);
   return (
     <div style={style}>
-      <Header
-        color={headerColor || "white"}
-        backgroundColor={headerBGColor || colors.bg3}
-      >
+      <Header color={headerColor} backgroundColor={headerBGColor}>
         {title}
 
         {collapsible && (
@@ -104,3 +99,28 @@ export const BuildInfoItem: React.FC<Props> = ({
     </div>
   );
 };
+
+const SkeletonContents = styled.div`
+  width: 12rem;
+  height: 1rem;
+  margin: 0.75rem 1rem;
+  background-color: ${props => props.theme.bg3};
+`;
+
+export const BuildInfoItemSkeleton = ({
+  title,
+  style
+}: {
+  title: string;
+  style?: React.CSSProperties;
+}) => (
+  <div style={style}>
+    <Header>{title}</Header>
+
+    <div>
+      <Contents>
+        <SkeletonContents />
+      </Contents>
+    </div>
+  </div>
+);

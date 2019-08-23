@@ -10,6 +10,18 @@ const StyledLogo = styled(Logo)`
   margin-right: 0.5rem;
 `;
 
+const SandboxTitle = styled.div`
+  width: 15rem;
+  margin-right: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const Source = styled.span`
+  color: ${props => props.theme.gray};
+`;
+
 interface Props {
   style?: React.CSSProperties;
   sandboxes?: ISandbox[];
@@ -25,7 +37,10 @@ export const SandboxList = ({ style, sandboxes }: Props) => {
           key={sandbox.url}
           i={i}
         >
-          <StyledLogo /> {sandbox.title}
+          <SandboxTitle>
+            <StyledLogo /> {sandbox.title}
+          </SandboxTitle>
+          <Source>{sandbox.source}</Source>
         </BuildListItem>
       ))}
     </BuildInfoItem>

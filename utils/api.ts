@@ -30,6 +30,7 @@ export type IBuild = (NotStartedBuild | StartedBuild) & {
 export interface ISandbox {
   title: string;
   url: string;
+  source: string;
 }
 
 export interface IPackage {
