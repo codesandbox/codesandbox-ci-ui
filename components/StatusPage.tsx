@@ -11,6 +11,7 @@ import { Details } from "./Details";
 import { IPR, IBuild, getPrs, getBuilds } from "../utils/api";
 import { Layout } from "./Layout";
 import { SkeletonStatusPage } from "./SkeletonStatusPage";
+import { Head } from "next/document";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -44,6 +45,9 @@ const StatusPage = ({
   if (notFound || error) {
     return (
       <SkeletonStatusPage>
+        <Head>
+          <title>Not Found - CodeSandbox CI</title>
+        </Head>
         <p style={{ maxWidth: 600, textAlign: "center", lineHeight: 1.6 }}>
           {notFound
             ? `We could not find the repository you were looking for, have you
@@ -57,6 +61,11 @@ const StatusPage = ({
   if (prs.length === 0) {
     return (
       <SkeletonStatusPage>
+        <Head>
+          <title>
+            {username}/{repo} - CodeSandbox CI
+          </title>
+        </Head>
         <p>You haven't created any Pull Requests yet.</p>
         <a
           target="_blank"
@@ -129,7 +138,9 @@ const StatusPage = ({
 StatusPage.getInitialProps = async ({
   query,
   res
-}): Promise<StatusPageProps | { notFound: true } | { error: true }> => {
+}): Promise<
+  { title?: string } & (StatusPageProps | { notFound: true } | { error: true })
+> => {
   try {
     const { username, repo } = query;
 
@@ -164,7 +175,8 @@ StatusPage.getInitialProps = async ({
       prs,
       builds,
       selectedPrNumber: prNumber,
-      selectedBuildId: buildId
+      selectedBuildId: buildId,
+      title: `${username}/${repo}`
     };
   } catch (e) {
     if (res) {
@@ -172,7 +184,7 @@ StatusPage.getInitialProps = async ({
     }
 
     if (e.response.status === 404) {
-      return { notFound: true };
+      return { notFound: true, title: "Not Found" };
     } else {
       return { error: true };
     }

@@ -69,8 +69,10 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
     const res = await getBuildDetails(username, repo, prNumber, build.id);
 
     const oldStatus = buildDetails ? buildDetails.status : build.status;
+    const oldBuildId = buildDetails ? buildDetails.id : build.id;
     if (
       oldStatus &&
+      res.build.id === oldBuildId &&
       res.build.status !== oldStatus &&
       (oldStatus === "queued" || oldStatus === "running")
     ) {
@@ -86,7 +88,9 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
     username,
     build.id,
     // eslint-disable-next-line
-    buildDetails ? buildDetails.status : build.status
+    buildDetails ? buildDetails.status : build.status,
+    // eslint-disable-next-line
+    buildDetails ? buildDetails.id : build.id
   ]);
 
   useEffect(() => {

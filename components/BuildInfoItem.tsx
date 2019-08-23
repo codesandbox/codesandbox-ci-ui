@@ -45,10 +45,6 @@ const Contents = styled.div`
   max-width: 100%;
   width: 100%;
   overflow: auto;
-
-  code {
-    font-family: "Menlo", monospace;
-  }
 `;
 
 const StyledCollapseIcon = styled(CollapseIcon)<{ show: boolean }>`

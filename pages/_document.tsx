@@ -30,8 +30,11 @@ export default class MyDocument extends Document<Props> {
         <Head>
           {/* Step 5: Output the styles in the head  */}
 
-          <title>CodeSandbox CI</title>
           <link rel="preload" href="/static/inter.css" as="style" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Source+Code+Pro:600,700&display=swap"
+            rel="stylesheet"
+          />
           {this.props.styleTags}
         </Head>
         <body>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cache from "lru-cache";
 
 export type Status = "queued" | "canceled" | "running" | "failed" | "succeeded";
 
@@ -57,13 +58,25 @@ interface IPRResponse {
   prs: IPR[];
 }
 
+const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
+  maxAge: 1000 * 60
+});
+
 export async function getPrs(
   username: string,
   repo: string
 ): Promise<IPRResponse> {
-  const response = (await axios.get(
-    `https://gh.staging.csb.dev/api/${username}/${repo}/prs`
-  )).data;
+  const key = `${username}/${repo}`;
+  let prsPromise = prCache.get(key);
+
+  if (!prsPromise) {
+    prsPromise = axios.get(
+      `https://gh.staging.csb.dev/api/${username}/${repo}/prs`
+    );
+    prCache.set(key, prsPromise);
+  }
+
+  const response = (await prsPromise).data;
 
   return response;
 }
@@ -72,14 +85,27 @@ interface IBuildResponse {
   builds: IBuild[];
 }
 
+const buildsCache = new Cache<string, Promise<{ data: IBuildResponse }>>({
+  maxAge: 1000 * 60
+});
+
 export async function getBuilds(
   username: string,
   repo: string,
   prNumber: number
 ): Promise<IBuildResponse> {
-  const response = (await axios.get(
-    `https://gh.staging.csb.dev/api/${username}/${repo}/prs/${prNumber}/builds`
-  )).data;
+  const key = `${username}/${repo}/${prNumber}`;
+  let buildsPromise = buildsCache.get(key);
+
+  if (!buildsPromise) {
+    buildsPromise = axios.get(
+      `https://gh.staging.csb.dev/api/${username}/${repo}/prs/${prNumber}/builds`
+    );
+
+    buildsCache.set(key, buildsPromise);
+  }
+
+  const response = (await buildsPromise).data;
 
   return response;
 }
