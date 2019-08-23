@@ -89,24 +89,22 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
       >
         <CodeBlock>
           {log
-            ? log.split("\n").map((line, i) =>
+            ? log.split(/(^\+.*\n)/m).map((line, i) =>
                 line.startsWith("+") ? (
                   <code key={i} style={{ color: "white", fontWeight: 700 }}>
                     {line}
-                    <br />
                   </code>
                 ) : (
                   <span key={i} style={{ color: "#ccc", display: "block" }}>
-                    <Ansi key={i} linkify={false}>
-                      {line}
-                    </Ansi>
-                    <br />
+                    <Ansi linkify={false}>{line}</Ansi>
                   </span>
                 )
               )
             : status === "queued"
             ? "Waiting to be built..."
             : "Loading..."}
+
+          <br />
         </CodeBlock>
       </div>
     </BuildInfoItem>

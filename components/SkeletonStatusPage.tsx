@@ -15,7 +15,7 @@ const Container = styled.div`
   height: 100%;
   background-color: ${props => props.theme.bg2};
 
-  font-size: 1.25rem;
+  font-size: 1.4375rem;
 
   svg {
     margin-bottom: 2rem;

@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { colors } from "../theme/colors";
 import { Header } from "./Header";
+import { GlobalStateProvider } from "../utils/state";
 
 interface Props {
   title: string;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import JavascriptTimeAgo from "javascript-time-ago";
 // The desired locales.
@@ -11,7 +11,7 @@ import { Details } from "./Details";
 import { IPR, IBuild, getPrs, getBuilds } from "../utils/api";
 import { Layout } from "./Layout";
 import { SkeletonStatusPage } from "./SkeletonStatusPage";
-import { Head } from "next/document";
+import { useGlobalState } from "../utils/state";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -42,6 +42,13 @@ const StatusPage = ({
   notFound,
   error
 }: StatusPageProps) => {
+  const [statePrs, setPrs] = useGlobalState("prs");
+  const usedPrs = statePrs || prs;
+
+  useEffect(() => {
+    setPrs(prs);
+  }, [username, repo, prs]);
+
   if (notFound || error) {
     return (
       <SkeletonStatusPage>
@@ -55,7 +62,7 @@ const StatusPage = ({
     );
   }
 
-  if (prs.length === 0) {
+  if (usedPrs.length === 0) {
     return (
       <SkeletonStatusPage>
         <p>You haven't created any Pull Requests yet.</p>
@@ -71,17 +78,21 @@ const StatusPage = ({
     );
   }
 
-  const latestBuild = prs.find(pr => pr.number === selectedPrNumber)
+  const latestBuild = usedPrs.find(pr => pr.number === selectedPrNumber)
     .latestBuild;
 
   const buildsToShow = builds || [latestBuild];
+
+  buildsToShow.splice(0, 1, latestBuild);
+  // latestBuild of the PR is always a bit more fresh, so use that as first one always
+
   const selectedBuild = builds.find(build => build.id === selectedBuildId);
 
   return (
     <Layout title={`${username}/${repo}`}>
       <Content>
         <StatusList title="Pull Requests">
-          {prs.map(pr => (
+          {usedPrs.map(pr => (
             <StatusListItem
               key={pr.id}
               title={`#${pr.number}`}

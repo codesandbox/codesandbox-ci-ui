@@ -42,6 +42,7 @@ export type IBuildDetails = IBuild & {
   log: string;
   sandboxes: ISandbox[];
   packages: IPackage[];
+  pull: IPR;
 };
 
 export interface IPR {

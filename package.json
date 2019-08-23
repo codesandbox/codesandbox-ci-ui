@@ -19,6 +19,7 @@
     "next": "^9.0.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-hooks-global-state": "^0.14.0",
     "react-is": "^16.9.0",
     "react-show": "^3.0.4",
     "react-time-ago": "^5.0.4",

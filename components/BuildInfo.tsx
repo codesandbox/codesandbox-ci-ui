@@ -10,6 +10,7 @@ import { Countdown } from "./Countdown";
 import { SandboxList } from "./SandboxList";
 import { PackagesList } from "./PackagesList";
 import { BuildInfoItemSkeleton } from "./BuildInfoItem";
+import { setGlobalState, useGlobalState } from "../utils/state";
 
 const Container = styled.div`
   height: 100%;
@@ -64,34 +65,21 @@ interface Props {
 
 export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const [buildDetails, setBuildDetails] = React.useState<IBuildDetails>();
+  const [prs, setPrs] = useGlobalState("prs");
 
   const fetchBuildDetails = useCallback(async () => {
     const res = await getBuildDetails(username, repo, prNumber, build.id);
-
-    const oldStatus = buildDetails ? buildDetails.status : build.status;
-    const oldBuildId = buildDetails ? buildDetails.id : build.id;
-    if (
-      oldStatus &&
-      res.build.id === oldBuildId &&
-      res.build.status !== oldStatus &&
-      (oldStatus === "queued" || oldStatus === "running")
-    ) {
-      // Refresh the whole ui as the build has changed its status
-      Router.replace(document.location.pathname);
-    }
-
     setBuildDetails(res.build);
-    // eslint-disable-next-line
-  }, [
-    prNumber,
-    repo,
-    username,
-    build.id,
-    // eslint-disable-next-line
-    buildDetails ? buildDetails.status : build.status,
-    // eslint-disable-next-line
-    buildDetails ? buildDetails.id : build.id
-  ]);
+
+    if (prs) {
+      const currentPr = prs.find(pr => pr.number === prNumber);
+      if (currentPr.latestBuild.status !== res.build.pull.latestBuild.status) {
+        setPrs(
+          prs.map(pr => (pr.id === res.build.pull.id ? res.build.pull : pr))
+        );
+      }
+    }
+  }, [prNumber, repo, username, build.id]);
 
   useEffect(() => {
     return () => {
