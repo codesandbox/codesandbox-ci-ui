@@ -81,10 +81,14 @@ const StatusPage = ({
   const latestBuild = usedPrs.find(pr => pr.number === selectedPrNumber)
     .latestBuild;
 
-  const buildsToShow = builds || [latestBuild];
+  const buildsToShow = [...(builds || [latestBuild])];
 
-  buildsToShow.splice(0, 1, latestBuild);
-  // latestBuild of the PR is always a bit more fresh, so use that as first one always
+  if (buildsToShow[0] && buildsToShow[0].id === latestBuild.id) {
+    // latestBuild of the PR is always a bit more fresh, so use that as first one always
+    buildsToShow.shift();
+  }
+
+  buildsToShow.unshift(latestBuild);
 
   const selectedBuild = builds.find(build => build.id === selectedBuildId);
 
