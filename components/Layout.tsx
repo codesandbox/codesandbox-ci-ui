@@ -51,10 +51,6 @@ const GlobalStyles = createGlobalStyle`
 
     text-decoration: none;
 
-    &[target="_blank"] {
-      color: #6CC7F6;
-    }
-
 
     &:hover {
       color: white;

@@ -15,7 +15,8 @@ import { SkeletonStatusPage } from "./SkeletonStatusPage";
 import { useGlobalState } from "../utils/state";
 
 // Initialize the desired locales.
-JavascriptTimeAgo.locale(en);
+JavascriptTLayout.tsx;
+imeAgo.locale(en);
 
 type WrapperProps = {
   selectedPr?: string | string[];
@@ -106,6 +107,7 @@ const StatusPage = ({
           target="_blank"
           rel="noreferrer noopener"
           href="https://u2edh.csb.app"
+          style={{ color: "#6CC7F6" }}
         >
           Learn more
         </a>
