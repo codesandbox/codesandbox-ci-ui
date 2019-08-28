@@ -29,6 +29,11 @@ const CodeBlock = styled.pre`
   }
 `;
 
+const CodeWrapper = styled.div`
+  height: 23rem;
+  position: relative;
+`;
+
 const getStatusInfo = (status: Status, duration: number) => {
   switch (status) {
     case "canceled":
@@ -81,12 +86,7 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
       headerBGColor={statusInfo.backgroundColor}
       contentsRef={contentsRef}
     >
-      <div
-        style={{
-          height: "23rem",
-          position: "relative"
-        }}
-      >
+      <CodeWrapper>
         <CodeBlock>
           {log
             ? log.split(/(^\+.*\n)/m).map((line, i) =>
@@ -106,7 +106,7 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
 
           <br />
         </CodeBlock>
-      </div>
+      </CodeWrapper>
     </BuildInfoItem>
   );
 };

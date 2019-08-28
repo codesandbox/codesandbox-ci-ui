@@ -27,6 +27,12 @@ const Content = styled.div`
   height: calc(100% - ${HEADER_HEIGHT});
 `;
 
+const ErrorMessage = styled.p`
+  max-width: 600px;
+  text-align: center;
+  line-height: 1.6;
+`;
+
 const WrapperPRS = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
     display: ${props =>
@@ -82,12 +88,12 @@ const StatusPage = ({
   if (notFound || error) {
     return (
       <SkeletonStatusPage>
-        <p style={{ maxWidth: 600, textAlign: "center", lineHeight: 1.6 }}>
+        <ErrorMessage>
           {notFound
             ? `We could not find the repository you were looking for, have you
             installed the GitHub App?`
             : `We just got an error, please retry in a couple minutes!`}
-        </p>
+        </ErrorMessage>
       </SkeletonStatusPage>
     );
   }
@@ -99,7 +105,6 @@ const StatusPage = ({
         <a
           target="_blank"
           rel="noreferrer noopener"
-          style={{ color: "#6CC7F6" }}
           href="https://u2edh.csb.app"
         >
           Learn more

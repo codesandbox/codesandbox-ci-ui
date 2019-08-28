@@ -72,6 +72,12 @@ const StyledTimeAgo = styled(ReactTimeAgo)`
   color: ${props => props.theme.gray};
 `;
 
+const Info = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.25rem;
+`;
+
 interface Props {
   title: string;
   description: string;
@@ -96,12 +102,10 @@ export const StatusListItem = ({
           <StatusIcon status={status} />
         </StatusContainer>
         <InfoContainer>
-          <div
-            style={{ display: "flex", width: "100%", marginBottom: ".25rem" }}
-          >
+          <Info>
             <Title>{title}</Title>
             <StyledTimeAgo date={timestamp} />
-          </div>
+          </Info>
 
           <Description>{description}</Description>
         </InfoContainer>

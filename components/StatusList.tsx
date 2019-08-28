@@ -25,6 +25,12 @@ const Header = styled.div`
   background-color: ${props => props.theme.bg2};
 `;
 
+const Wrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+`;
+
 interface Props {
   title: string;
 }
@@ -32,8 +38,6 @@ interface Props {
 export const StatusList: React.FC<Props> = ({ title, children }) => (
   <Container>
     <Header>{title}</Header>
-    <div style={{ height: "100%", width: "100%", overflowY: "auto" }}>
-      {children}
-    </div>
+    <Wrapper>{children}</Wrapper>
   </Container>
 );

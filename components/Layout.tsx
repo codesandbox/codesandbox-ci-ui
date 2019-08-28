@@ -51,6 +51,11 @@ const GlobalStyles = createGlobalStyle`
 
     text-decoration: none;
 
+    &[target="_blank"] {
+      color: #6CC7F6;
+    }
+
+
     &:hover {
       color: white;
     }
@@ -82,6 +87,10 @@ const BreadCrumbs = styled.div`
   }
 `;
 
+const Main = styled.main`
+  height: 100%;
+`;
+
 export const Layout: React.FC<Props> = ({
   username,
   title,
@@ -91,11 +100,12 @@ export const Layout: React.FC<Props> = ({
   selectedBuild
 }) => (
   <ThemeProvider theme={colors}>
-    <main style={{ height: "100%" }}>
+    <Main>
       <GlobalStyles />
       <Header title={title || `${username}/${repo}`} />
-      <BreadCrumbs>
-        {selectedPr && !selectedBuild ? (
+
+      {selectedPr && !selectedBuild ? (
+        <BreadCrumbs>
           <Link
             href={`/status/[username]/[repo]`}
             as={`/status/${username}/${repo}`}
@@ -104,8 +114,10 @@ export const Layout: React.FC<Props> = ({
               <Back /> Back to Pull Requests
             </a>
           </Link>
-        ) : null}
-        {selectedBuild ? (
+        </BreadCrumbs>
+      ) : null}
+      {selectedBuild ? (
+        <BreadCrumbs>
           <Link
             href={`/status/[username]/[repo]/pr/[prNumber]`}
             as={`/status/${username}/${repo}/pr/${selectedPr}`}
@@ -114,9 +126,10 @@ export const Layout: React.FC<Props> = ({
               <Back /> Back to PR #{selectedPr}
             </a>
           </Link>
-        ) : null}
-      </BreadCrumbs>
+        </BreadCrumbs>
+      ) : null}
+
       {children}
-    </main>
+    </Main>
   </ThemeProvider>
 );
