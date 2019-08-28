@@ -7,6 +7,10 @@ const Container = styled.div`
   height: 100%;
 
   border-right: 1px solid ${props => props.theme.bg3};
+
+  @media screen and (max-width: 768px) {
+    min-width: 100%;
+  }
 `;
 
 const Header = styled.div`
@@ -17,7 +21,7 @@ const Header = styled.div`
   color: white;
   font-size: 0.8125rem;
 
-  color: ${props => props.theme.gray};
+  color: ${props => props.theme.white};
   background-color: ${props => props.theme.bg2};
 `;
 

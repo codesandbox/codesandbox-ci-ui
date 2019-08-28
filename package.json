@@ -18,13 +18,15 @@
     "lru-cache": "^5.1.1",
     "next": "^9.0.4",
     "react": "^16.9.0",
+    "react-cache": "^2.0.0-alpha.1",
     "react-dom": "^16.9.0",
     "react-hooks-global-state": "^0.14.0",
     "react-is": "^16.9.0",
     "react-show": "^3.0.4",
     "react-time-ago": "^5.0.4",
     "styled-components": "^5.0.0-beta.8",
-    "stylis": "^3.5.4"
+    "stylis": "^3.5.4",
+    "the-platform": "^0.10.1"
   },
   "devDependencies": {
     "@types/lodash.sortby": "^4.7.6",

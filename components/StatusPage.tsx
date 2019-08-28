@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import JavascriptTimeAgo from "javascript-time-ago";
 // The desired locales.
 import en from "javascript-time-ago/locale/en";
@@ -16,9 +17,37 @@ import { useGlobalState } from "../utils/state";
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
 
+type WrapperProps = {
+  selectedPr?: string | string[];
+  selectedBuild?: string | string[];
+};
+
 const Content = styled.div`
   display: flex;
   height: calc(100% - ${HEADER_HEIGHT});
+`;
+
+const WrapperPRS = styled.div<WrapperProps>`
+  @media screen and (max-width: 768px) {
+    display: ${props =>
+      props.selectedPr || props.selectedBuild ? "none" : "block"};
+    width: 100%;
+  }
+`;
+
+const WrapperBuilds = styled.div<WrapperProps>`
+  @media screen and (max-width: 768px) {
+    display: ${props =>
+      !props.selectedPr || props.selectedBuild ? "none" : "block"};
+    width: 100%;
+  }
+`;
+
+const WrapperDetails = styled.div<WrapperProps>`
+  @media screen and (max-width: 768px) {
+    display: ${props => (!props.selectedBuild ? "none" : "block")};
+  }
+  width: 100%;
 `;
 
 export interface StatusPageProps {
@@ -44,10 +73,11 @@ const StatusPage = ({
 }: StatusPageProps) => {
   const [statePrs, setPrs] = useGlobalState("prs");
   const usedPrs = statePrs || prs;
+  const { query: params } = useRouter();
 
   useEffect(() => {
     setPrs(prs);
-  }, [username, repo, prs]);
+  }, [username, repo, prs, setPrs]);
 
   if (notFound || error) {
     return (
@@ -93,50 +123,63 @@ const StatusPage = ({
   const selectedBuild = builds.find(build => build.id === selectedBuildId);
 
   return (
-    <Layout title={`${username}/${repo}`}>
+    <Layout
+      selectedBuild={params.buildId}
+      selectedPr={params.prNumber}
+      username={username}
+      repo={repo}
+    >
       <Content>
-        <StatusList title="Pull Requests">
-          {usedPrs.map(pr => (
-            <StatusListItem
-              key={pr.id}
-              title={`#${pr.number}`}
-              description={pr.title}
-              timestamp={+new Date(pr.createdAt)}
-              status={pr.latestBuild.status}
-              selected={pr.number === selectedPrNumber}
-              link={{
-                href: `/status/[username]/[repo]/pr/[prNumber]`,
-                as: `/status/${username}/${repo}/pr/${pr.number}`
-              }}
-            />
-          ))}
-        </StatusList>
-
-        <StatusList title="Build Activity">
-          {buildsToShow.map(build => (
-            <StatusListItem
-              key={build.id}
-              title={`#${build.id}`}
-              description={build.commitTitle}
-              timestamp={+new Date(build.createdAt)}
-              status={build.status}
-              selected={build.id === selectedBuildId}
-              link={{
-                as: `/status/${username}/${repo}/pr/${selectedPrNumber}/builds/${
-                  build.id
-                }`,
-                href: `/status/[username]/[repo]/pr/[prNumber]/builds/[buildId]`
-              }}
-            />
-          ))}
-        </StatusList>
-
-        <Details
-          build={selectedBuild}
-          repo={repo}
-          username={username}
-          prNumber={selectedPrNumber}
-        />
+        <WrapperPRS selectedBuild={params.buildId} selectedPr={params.prNumber}>
+          <StatusList title="Pull Requests">
+            {usedPrs.map(pr => (
+              <StatusListItem
+                key={pr.id}
+                title={`#${pr.number}`}
+                description={pr.title}
+                timestamp={+new Date(pr.createdAt)}
+                status={pr.latestBuild.status}
+                selected={pr.number === selectedPrNumber}
+                link={{
+                  href: `/status/[username]/[repo]/pr/[prNumber]`,
+                  as: `/status/${username}/${repo}/pr/${pr.number}`
+                }}
+              />
+            ))}
+          </StatusList>
+        </WrapperPRS>
+        <WrapperBuilds
+          selectedBuild={params.buildId}
+          selectedPr={params.prNumber}
+        >
+          <StatusList title="Build Activity">
+            {buildsToShow.map(build => (
+              <StatusListItem
+                key={build.id}
+                title={`#${build.id}`}
+                description={build.commitTitle}
+                timestamp={+new Date(build.createdAt)}
+                status={build.status}
+                selected={build.id === selectedBuildId}
+                link={{
+                  as: `/status/${username}/${repo}/pr/${selectedPrNumber}/builds/${build.id}`,
+                  href: `/status/[username]/[repo]/pr/[prNumber]/builds/[buildId]`
+                }}
+              />
+            ))}
+          </StatusList>
+        </WrapperBuilds>
+        <WrapperDetails
+          selectedBuild={params.buildId}
+          selectedPr={params.prNumber}
+        >
+          <Details
+            build={selectedBuild}
+            repo={repo}
+            username={username}
+            prNumber={selectedPrNumber}
+          />
+        </WrapperDetails>
       </Content>
     </Layout>
   );
