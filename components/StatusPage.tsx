@@ -15,8 +15,7 @@ import { SkeletonStatusPage } from "./SkeletonStatusPage";
 import { useGlobalState } from "../utils/state";
 
 // Initialize the desired locales.
-JavascriptTLayout.tsx;
-imeAgo.locale(en);
+JavascriptTimeAgo.locale(en);
 
 type WrapperProps = {
   selectedPr?: string | string[];
