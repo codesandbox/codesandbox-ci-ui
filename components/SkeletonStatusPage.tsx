@@ -22,9 +22,21 @@ const Container = styled.div`
   }
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  height: 100%;
+
+  @media screen and (max-width: 768px) {
+    div:first-child,
+    div:nth-child(2) {
+      display: none;
+    }
+  }
+`;
+
 export const SkeletonStatusPage: React.FC<{}> = ({ children }) => (
   <Layout title="CodeSandbox CI">
-    <div style={{ display: "flex", height: "100%" }}>
+    <Wrapper>
       <StatusList title="Pull Requests">
         <StatusListSkeletonItem />
         <StatusListSkeletonItem />
@@ -37,6 +49,6 @@ export const SkeletonStatusPage: React.FC<{}> = ({ children }) => (
         <ForkIcon />
         {children}
       </Container>
-    </div>
+    </Wrapper>
   </Layout>
 );
