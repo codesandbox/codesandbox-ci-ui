@@ -14,7 +14,7 @@ export const YarnInstallList = ({ style, packages }: Props) => {
       collapsible
       style={style}
       expandedByDefault={packages.length < 3}
-      title="Install Instructions"
+      title="Local Install Instructions"
     >
       <CodeBlock>yarn add {packages.map(p => p.url).join(" ")}</CodeBlock>
     </BuildInfoItem>
