@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback } from "react";
-import Router from "next/router";
 import { StatusIcon } from "./StatusIcon";
 import styled from "styled-components";
 import ReactTimeAgo from "react-time-ago";
@@ -10,7 +9,7 @@ import { Countdown } from "./Countdown";
 import { SandboxList } from "./SandboxList";
 import { PackagesList } from "./PackagesList";
 import { BuildInfoItemSkeleton } from "./BuildInfoItem";
-import { setGlobalState, useGlobalState } from "../utils/state";
+import { useGlobalState } from "../utils/state";
 
 const Container = styled.div`
   height: 100%;
@@ -79,7 +78,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         );
       }
     }
-  }, [prNumber, repo, username, build.id]);
+  }, [username, repo, prNumber, build.id, prs, setPrs]);
 
   useEffect(() => {
     return () => {
@@ -94,7 +93,6 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const usedBuild = buildDetails || build;
   useEffect(() => {
     function tick() {
-      // @ts-ignore
       if (usedBuild.status === "running" || usedBuild.status === "queued") {
         fetchBuildDetails();
       }
@@ -145,9 +143,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
             </Link>{" "}
             to{" "}
             <Link
-              href={`https://github.com/${username}/${repo}/tree/${
-                usedBuild.targetBranch
-              }`}
+              href={`https://github.com/${username}/${repo}/tree/${usedBuild.targetBranch}`}
             >
               {usedBuild.targetBranch}
             </Link>
