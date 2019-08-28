@@ -73,7 +73,7 @@ const BreadCrumbs = styled.div`
 
   a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.6);
+    color: ${props => props.theme.gray};
     display: flex;
     align-items: center;
 

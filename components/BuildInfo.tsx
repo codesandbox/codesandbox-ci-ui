@@ -78,7 +78,8 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         );
       }
     }
-  }, [username, repo, prNumber, build.id, prs, setPrs]);
+    // eslint-disable-next-line
+  }, [prNumber, repo, username, build.id]);
 
   useEffect(() => {
     return () => {
