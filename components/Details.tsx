@@ -10,6 +10,10 @@ const Container = styled.div`
 
   padding: 2rem 1.5rem;
   overflow-y: auto;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 interface Props {

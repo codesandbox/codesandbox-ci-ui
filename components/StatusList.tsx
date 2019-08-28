@@ -7,6 +7,10 @@ const Container = styled.div`
   height: 100%;
 
   border-right: 1px solid ${props => props.theme.bg3};
+
+  @media screen and (max-width: 768px) {
+    min-width: 100%;
+  }
 `;
 
 const Header = styled.div`
@@ -14,11 +18,17 @@ const Header = styled.div`
   padding: 0 0.5rem;
   display: flex;
   align-items: center;
-  color: white;
+  color: ${props => props.theme.white};
   font-size: 0.8125rem;
 
-  color: ${props => props.theme.gray};
+  color: ${props => props.theme.white};
   background-color: ${props => props.theme.bg2};
+`;
+
+const Wrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
 `;
 
 interface Props {
@@ -28,8 +38,6 @@ interface Props {
 export const StatusList: React.FC<Props> = ({ title, children }) => (
   <Container>
     <Header>{title}</Header>
-    <div style={{ height: "100%", width: "100%", overflowY: "auto" }}>
-      {children}
-    </div>
+    <Wrapper>{children}</Wrapper>
   </Container>
 );

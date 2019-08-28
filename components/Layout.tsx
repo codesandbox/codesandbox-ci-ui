@@ -1,22 +1,27 @@
 import React from "react";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import Link from "next/link";
+import { Back } from "./icons/Back";
 import { colors } from "../theme/colors";
 import { Header } from "./Header";
-import { GlobalStateProvider } from "../utils/state";
 
 interface Props {
-  title: string;
+  title?: string;
+  username?: string;
+  repo?: string;
+  selectedPr?: string | string[];
+  selectedBuild?: string | string[];
 }
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle<{ theme: any }>`
   html,
   body {
-    background-color: #040404;
+    background-color: ${props => props.theme.bg1};
     margin: 0;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    color: white;
+    color: ${props => props.theme.white};
 
     font-family: "Inter", Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -25,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    color: white;
+    color: ${props => props.theme.white};
     font-size: 16px !important;
 
     -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -46,8 +51,9 @@ const GlobalStyles = createGlobalStyle`
 
     text-decoration: none;
 
+
     &:hover {
-      color: white;
+      color: ${props => props.theme.white};
     }
   }
 
@@ -56,13 +62,70 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const Layout: React.FC<Props> = ({ title, children }) => (
+const BreadCrumbs = styled.div`
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
+
+  font-size: 0.8125rem;
+  background-color: ${props => props.theme.bg2};
+  padding: 0.5rem;
+
+  a {
+    text-decoration: none;
+    color: ${props => props.theme.gray};
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+`;
+
+const Main = styled.main`
+  height: 100%;
+`;
+
+export const Layout: React.FC<Props> = ({
+  username,
+  title,
+  repo,
+  children,
+  selectedPr,
+  selectedBuild
+}) => (
   <ThemeProvider theme={colors}>
-    <main style={{ height: "100%" }}>
+    <Main>
       <GlobalStyles />
-      <Header title={title} />
+      <Header title={title || `${username}/${repo}`} />
+
+      {selectedPr && !selectedBuild ? (
+        <BreadCrumbs>
+          <Link
+            href={`/status/[username]/[repo]`}
+            as={`/status/${username}/${repo}`}
+          >
+            <a>
+              <Back /> Back to Pull Requests
+            </a>
+          </Link>
+        </BreadCrumbs>
+      ) : null}
+      {selectedBuild ? (
+        <BreadCrumbs>
+          <Link
+            href={`/status/[username]/[repo]/pr/[prNumber]`}
+            as={`/status/${username}/${repo}/pr/${selectedPr}`}
+          >
+            <a>
+              <Back /> Back to PR #{selectedPr}
+            </a>
+          </Link>
+        </BreadCrumbs>
+      ) : null}
 
       {children}
-    </main>
+    </Main>
   </ThemeProvider>
 );
