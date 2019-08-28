@@ -1,5 +1,6 @@
 import React from "react";
 import { SkeletonStatusPage } from "../components/SkeletonStatusPage";
+import { colors } from "../theme/colors";
 
 export default () => (
   <SkeletonStatusPage>
@@ -8,7 +9,7 @@ export default () => (
       target="_blank"
       href="https://u2edh.csb.app"
       rel="noreferrer noopener"
-      style={{ color: "#6CC7F6" }}
+      style={{ color: colors.blue }}
     >
       Learn more
     </a>

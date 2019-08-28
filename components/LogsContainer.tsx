@@ -42,30 +42,34 @@ const getStatusInfo = (status: Status, duration: number) => {
           Math.floor(duration / 1000)
         )}`,
         backgroundColor: colors.gray,
-        color: "white"
+        color: colors.white
       };
     case "succeeded":
       return {
         message: "Finished!",
         backgroundColor: colors.bg3,
-        color: "white"
+        color: colors.white
       };
     case "running":
       return {
         message: "Running...",
-        backgroundColor: "white",
-        color: "black"
+        backgroundColor: colors.white,
+        color: colors.black
       };
     case "failed":
       return {
         message: `Build failed in ${secondsToCounter(
           Math.floor(duration / 1000)
         )}`,
-        backgroundColor: "#E1270E",
-        color: "white"
+        backgroundColor: colors.red,
+        color: colors.white
       };
     case "queued":
-      return { message: "Queued", backgroundColor: "white", color: "black" };
+      return {
+        message: "Queued",
+        backgroundColor: colors.white,
+        color: colors.black
+      };
   }
 };
 
@@ -91,7 +95,10 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
           {log
             ? log.split(/(^\+.*\n)/m).map((line, i) =>
                 line.startsWith("+") ? (
-                  <code key={i} style={{ color: "white", fontWeight: 700 }}>
+                  <code
+                    key={i}
+                    style={{ color: colors.white, fontWeight: 700 }}
+                  >
                     {line}
                   </code>
                 ) : (

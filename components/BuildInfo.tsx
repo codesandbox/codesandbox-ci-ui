@@ -51,7 +51,7 @@ const Link = styled.a.attrs({ target: "_blank", rel: "noreferrer noopener" })`
   text-decoration: none;
 
   &:hover {
-    color: white;
+    color: ${props => props.theme.white};
   }
 `;
 

@@ -18,7 +18,7 @@ const Header = styled.div`
   padding: 0 0.5rem;
   display: flex;
   align-items: center;
-  color: white;
+  color: ${props => props.theme.white};
   font-size: 0.8125rem;
 
   color: ${props => props.theme.white};

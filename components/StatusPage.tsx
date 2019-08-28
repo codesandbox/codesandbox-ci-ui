@@ -13,6 +13,7 @@ import { IPR, IBuild, getPrs, getBuilds } from "../utils/api";
 import { Layout } from "./Layout";
 import { SkeletonStatusPage } from "./SkeletonStatusPage";
 import { useGlobalState } from "../utils/state";
+import { colors } from "../theme/colors";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -106,7 +107,7 @@ const StatusPage = ({
           target="_blank"
           rel="noreferrer noopener"
           href="https://u2edh.csb.app"
-          style={{ color: "#6CC7F6" }}
+          style={{ color: colors.blue }}
         >
           Learn more
         </a>

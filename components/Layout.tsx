@@ -13,15 +13,15 @@ interface Props {
   selectedBuild?: string | string[];
 }
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle<{ theme: any }>`
   html,
   body {
-    background-color: #040404;
+    background-color: ${props => props.theme.bg1};
     margin: 0;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    color: white;
+    color: ${props => props.theme.white};
 
     font-family: "Inter", Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -30,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    color: white;
+    color: ${props => props.theme.white};
     font-size: 16px !important;
 
     -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -53,7 +53,7 @@ const GlobalStyles = createGlobalStyle`
 
 
     &:hover {
-      color: white;
+      color: ${props => props.theme.white};
     }
   }
 
