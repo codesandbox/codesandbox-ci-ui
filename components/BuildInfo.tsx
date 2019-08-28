@@ -11,6 +11,7 @@ import { SandboxList } from "./SandboxList";
 import { PackagesList } from "./PackagesList";
 import { BuildInfoItemSkeleton } from "./BuildInfoItem";
 import { setGlobalState, useGlobalState } from "../utils/state";
+import { YarnInstallList } from "./YarnInstallList";
 
 const Container = styled.div`
   height: 100%;
@@ -145,9 +146,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
             </Link>{" "}
             to{" "}
             <Link
-              href={`https://github.com/${username}/${repo}/tree/${
-                usedBuild.targetBranch
-              }`}
+              href={`https://github.com/${username}/${repo}/tree/${usedBuild.targetBranch}`}
             >
               {usedBuild.targetBranch}
             </Link>
@@ -183,6 +182,21 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
               <BuildInfoItemSkeleton
                 style={{ marginBottom: "1rem" }}
                 title="Loading Packages..."
+              />
+            )}
+
+        {buildDetails && buildDetails.packages != null
+          ? buildDetails.packages.length > 0 && (
+              <YarnInstallList
+                style={{ marginBottom: "1rem" }}
+                packages={buildDetails.packages}
+              />
+            )
+          : build &&
+            build.status === "succeeded" && (
+              <BuildInfoItemSkeleton
+                style={{ marginBottom: "1rem" }}
+                title="Loading Install Instructions..."
               />
             )}
 

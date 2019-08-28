@@ -4,30 +4,13 @@ import { Status } from "../utils/api";
 import { colors } from "../theme/colors";
 import { secondsToCounter } from "../utils/countdown";
 import { BuildInfoItem } from "./BuildInfoItem";
-import styled from "styled-components";
+import { CodeBlock } from "./CodeBlock";
 
 interface Props {
   status: Status;
   duration: number;
   log: string;
 }
-
-const CodeBlock = styled.pre`
-  margin: 0;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  font-family: "Source Code Pro", "Menlo", monospace;
-  font-weight: 600;
-  code {
-    font-family: "Source Code Pro", "Menlo", monospace;
-    font-weight: 600;
-  }
-`;
 
 const getStatusInfo = (status: Status, duration: number) => {
   switch (status) {
@@ -87,7 +70,9 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
           position: "relative"
         }}
       >
-        <CodeBlock>
+        <CodeBlock
+          style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
+        >
           {log
             ? log.split(/(^\+.*\n)/m).map((line, i) =>
                 line.startsWith("+") ? (
