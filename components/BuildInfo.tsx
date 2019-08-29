@@ -9,6 +9,7 @@ import { Countdown } from "./Countdown";
 import { SandboxList } from "./SandboxList";
 import { PackagesList } from "./PackagesList";
 import { BuildInfoItemSkeleton } from "./BuildInfoItem";
+import { YarnInstallList } from "./YarnInstallList";
 import { useGlobalState } from "../utils/state";
 
 const Container = styled.div`
@@ -180,6 +181,21 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
               <BuildInfoItemSkeleton
                 style={{ marginBottom: "1rem" }}
                 title="Loading Packages..."
+              />
+            )}
+
+        {buildDetails && buildDetails.packages != null
+          ? buildDetails.packages.length > 0 && (
+              <YarnInstallList
+                style={{ marginBottom: "1rem" }}
+                packages={buildDetails.packages}
+              />
+            )
+          : build &&
+            build.status === "succeeded" && (
+              <BuildInfoItemSkeleton
+                style={{ marginBottom: "1rem" }}
+                title="Loading Install Instructions..."
               />
             )}
 
