@@ -1,4 +1,5 @@
 import React from "react";
+import { colors } from "../../theme/colors";
 
 export const CollapseIcon: React.FC<{
   className?: string;
@@ -11,6 +12,6 @@ export const CollapseIcon: React.FC<{
     className={props.className}
     style={props.style}
   >
-    <path d="M4.5 6L0 0h9L4.5 6z" fill="#fff" />
+    <path d="M4.5 6L0 0h9L4.5 6z" fill={colors.white} />
   </svg>
 );

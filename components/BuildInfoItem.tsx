@@ -29,7 +29,7 @@ const Button = styled.button`
   background-color: transparent;
   margin: 0;
   padding: 0;
-  color: white;
+  color: ${props => props.theme.white};
   cursor: pointer;
 `;
 

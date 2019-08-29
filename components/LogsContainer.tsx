@@ -12,6 +12,11 @@ interface Props {
   log: string;
 }
 
+const CodeWrapper = styled.div`
+  height: 23rem;
+  position: relative;
+`;
+
 const getStatusInfo = (status: Status, duration: number) => {
   switch (status) {
     case "canceled":
@@ -20,30 +25,34 @@ const getStatusInfo = (status: Status, duration: number) => {
           Math.floor(duration / 1000)
         )}`,
         backgroundColor: colors.gray,
-        color: "white"
+        color: colors.white
       };
     case "succeeded":
       return {
         message: "Finished!",
         backgroundColor: colors.bg3,
-        color: "white"
+        color: colors.white
       };
     case "running":
       return {
         message: "Running...",
-        backgroundColor: "white",
-        color: "black"
+        backgroundColor: colors.white,
+        color: colors.black
       };
     case "failed":
       return {
         message: `Build failed in ${secondsToCounter(
           Math.floor(duration / 1000)
         )}`,
-        backgroundColor: "#E1270E",
-        color: "white"
+        backgroundColor: colors.red,
+        color: colors.white
       };
     case "queued":
-      return { message: "Queued", backgroundColor: "white", color: "black" };
+      return {
+        message: "Queued",
+        backgroundColor: colors.white,
+        color: colors.black
+      };
   }
 };
 
@@ -64,19 +73,17 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
       headerBGColor={statusInfo.backgroundColor}
       contentsRef={contentsRef}
     >
-      <div
-        style={{
-          height: "23rem",
-          position: "relative"
-        }}
-      >
+      <CodeWrapper>
         <CodeBlock
           style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
         >
           {log
             ? log.split(/(^\+.*\n)/m).map((line, i) =>
                 line.startsWith("+") ? (
-                  <code key={i} style={{ color: "white", fontWeight: 700 }}>
+                  <code
+                    key={i}
+                    style={{ color: colors.white, fontWeight: 700 }}
+                  >
                     {line}
                   </code>
                 ) : (
@@ -91,7 +98,7 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
 
           <br />
         </CodeBlock>
-      </div>
+      </CodeWrapper>
     </BuildInfoItem>
   );
 };

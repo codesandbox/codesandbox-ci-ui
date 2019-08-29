@@ -20,7 +20,7 @@ const Container = styled.a<{ selected: boolean | undefined }>`
   height: 4rem;
   font-size: 0.8125rem;
   line-height: 0.875rem;
-  color: white;
+  color: ${props => props.theme.white};
 
   padding: 0.5rem 1rem;
 
@@ -28,16 +28,24 @@ const Container = styled.a<{ selected: boolean | undefined }>`
 
   border-bottom: 1px solid ${props => props.theme.bg3};
 
-  ${props =>
-    props.selected
-      ? css`
-          background-color: ${props => props.theme.bg3};
-        `
-      : css`
-          &:hover {
-            background-color: #111111;
-          }
-        `}
+  @media screen and (max-width: 768px) {
+    &:hover {
+      background-color: ${props => props.theme.bg1Hover};
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    ${props =>
+      props.selected
+        ? css`
+            background-color: ${props => props.theme.bg3};
+          `
+        : css`
+            &:hover {
+              background-color: ${props => props.theme.bg1Hover};
+            }
+          `}
+  }
 `;
 
 const Title = styled.div`
@@ -72,6 +80,12 @@ const StyledTimeAgo = styled(ReactTimeAgo)`
   color: ${props => props.theme.gray};
 `;
 
+const Info = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.25rem;
+`;
+
 interface Props {
   title: string;
   description: string;
@@ -96,12 +110,10 @@ export const StatusListItem = ({
           <StatusIcon status={status} />
         </StatusContainer>
         <InfoContainer>
-          <div
-            style={{ display: "flex", width: "100%", marginBottom: ".25rem" }}
-          >
+          <Info>
             <Title>{title}</Title>
             <StyledTimeAgo date={timestamp} />
-          </div>
+          </Info>
 
           <Description>{description}</Description>
         </InfoContainer>

@@ -8,7 +8,7 @@ export const BuildListItem = styled.a<{ i: number }>`
   height: 2rem;
 
   text-decoration: none;
-  color: white;
+  color: ${props => props.theme.white};
 
   padding: 0.5rem 1rem;
 
@@ -16,6 +16,6 @@ export const BuildListItem = styled.a<{ i: number }>`
   cursor: pointer;
 
   &:hover {
-    background-color: #111111;
+    background-color: ${props => props.theme.bg1Hover};
   }
 `;
