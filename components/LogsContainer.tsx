@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import Ansi from "ansi-to-react";
 import { Status } from "../utils/api";
 import { colors } from "../theme/colors";
