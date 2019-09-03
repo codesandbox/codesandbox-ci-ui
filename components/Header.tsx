@@ -55,6 +55,7 @@ export const Header = ({ title }: Props) => {
         href="https://u2edh.csb.app"
         target="_blank"
         rel="noreferrer noopener"
+        aria-label="Learn more"
       >
         <QuestionIcon />
       </QuestionContainer>
