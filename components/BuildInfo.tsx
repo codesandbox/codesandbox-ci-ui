@@ -18,6 +18,11 @@ const Container = styled.div`
 
 const BuildDetails = styled.div`
   margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  @media screen and (max-width: 768px) {
+    padding-bottom: 2.5rem;
+  }
 `;
 
 const TitleContainer = styled.div`
