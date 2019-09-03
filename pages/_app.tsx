@@ -27,6 +27,8 @@ export default class CodeSandboxCI extends App {
                 : "CodeSandbox CI"}
             </title>
 
+            <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+
             <meta
               name="description"
               content="CodeSandbox CI is a continuous integration system built for open source library maintainers."
