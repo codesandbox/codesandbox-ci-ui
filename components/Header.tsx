@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import Logo from "@codesandbox/common/lib/components/Logo";
+import { Logo } from "./icons/Logo";
+import { QuestionIcon } from "./icons/Question";
 
 export const HEADER_HEIGHT = "2.5rem";
 
 const Container = styled.header`
+  position: relative;
   width: 100%;
   height: ${HEADER_HEIGHT};
   display: flex;
@@ -16,8 +18,28 @@ const Container = styled.header`
 `;
 
 const StyledLogo = styled(Logo)`
-  margin: 0 1rem;
+  font-size: 2rem;
+  margin: 0 0.5rem;
   height: 1.5rem;
+`;
+
+const QuestionContainer = styled.a`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: ${props => props.theme.gray};
+
+  width: ${HEADER_HEIGHT};
+  border-left: 1px solid ${props => props.theme.bg1};
+
+  cursor: pointer;
+  &:hover {
+    color: white;
+  }
 `;
 
 interface Props {
@@ -29,6 +51,13 @@ export const Header = ({ title }: Props) => {
     <Container>
       <StyledLogo />
       {title}
+      <QuestionContainer
+        href="https://u2edh.csb.app"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        <QuestionIcon />
+      </QuestionContainer>
     </Container>
   );
 };
