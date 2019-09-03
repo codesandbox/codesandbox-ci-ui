@@ -72,10 +72,15 @@ const BreadCrumbs = styled.div`
   padding: 0.5rem;
 
   a {
+    transition: 0.3s ease color;
     text-decoration: none;
-    color: ${props => props.theme.gray};
+    color: rgba(255, 255, 255, 0.5);
     display: flex;
     align-items: center;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
 
     svg {
       margin-right: 0.5rem;

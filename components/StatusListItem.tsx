@@ -77,7 +77,7 @@ const InfoContainer = styled.div`
 `;
 
 const StyledTimeAgo = styled(ReactTimeAgo)`
-  color: ${props => props.theme.gray};
+  color: rgba(255, 255, 255, 0.5);
 `;
 
 const Info = styled.div`
