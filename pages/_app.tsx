@@ -26,6 +26,11 @@ export default class CodeSandboxCI extends App {
                 ? `${pageProps.title} - CodeSandbox CI`
                 : "CodeSandbox CI"}
             </title>
+
+            <meta
+              name="description"
+              content="CodeSandbox CI is a continuous integration system built for open source library maintainers."
+            />
           </Head>
           <Component {...pageProps} />
         </Container>
