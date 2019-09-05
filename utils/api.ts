@@ -60,6 +60,8 @@ interface IPRResponse {
   prs: IPR[];
 }
 
+const BASE_URL = "https://gh.csb.dev/api";
+
 const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
   maxAge: 1000 * 60
 });
@@ -72,9 +74,7 @@ export async function getPrs(
   let prsPromise = prCache.get(key);
 
   if (!prsPromise) {
-    prsPromise = axios.get(
-      `https://gh.staging.csb.dev/api/${username}/${repo}/prs`
-    );
+    prsPromise = axios.get(`${BASE_URL}/${username}/${repo}/prs`);
     prCache.set(key, prsPromise);
   }
 
@@ -101,7 +101,7 @@ export async function getBuilds(
 
   if (!buildsPromise) {
     buildsPromise = axios.get(
-      `https://gh.staging.csb.dev/api/${username}/${repo}/prs/${prNumber}/builds`
+      `${BASE_URL}/${username}/${repo}/prs/${prNumber}/builds`
     );
 
     buildsCache.set(key, buildsPromise);
@@ -123,7 +123,7 @@ export async function getBuildDetails(
   buildId: number
 ): Promise<IBuildDetailsResponse> {
   const response = (await axios.get(
-    `https://gh.staging.csb.dev/api/${username}/${repo}/prs/${prNumber}/builds/${buildId}`
+    `${BASE_URL}/${username}/${repo}/prs/${prNumber}/builds/${buildId}`
   )).data;
 
   return response;
