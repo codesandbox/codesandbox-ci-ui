@@ -14,6 +14,7 @@ import { Layout } from "./Layout";
 import { SkeletonStatusPage } from "./SkeletonStatusPage";
 import { useGlobalState } from "../utils/state";
 import { colors } from "../theme/colors";
+import { LEARN_MORE_DOCUMENT_URL } from "../utils/constants";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -106,7 +107,7 @@ const StatusPage = ({
         <a
           target="_blank"
           rel="noreferrer noopener"
-          href="https://u2edh.csb.app"
+          href={LEARN_MORE_DOCUMENT_URL}
           style={{ color: colors.blue }}
         >
           Learn more

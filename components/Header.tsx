@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Logo } from "./icons/Logo";
 import { QuestionIcon } from "./icons/Question";
+import { LEARN_MORE_DOCUMENT_URL } from "../utils/constants";
 
 export const HEADER_HEIGHT = "2.5rem";
 
@@ -52,7 +53,7 @@ export const Header = ({ title }: Props) => {
       <StyledLogo />
       {title}
       <QuestionContainer
-        href="https://u2edh.csb.app"
+        href={LEARN_MORE_DOCUMENT_URL}
         target="_blank"
         rel="noreferrer noopener"
         aria-label="Learn more"
