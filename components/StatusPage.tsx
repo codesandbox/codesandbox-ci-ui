@@ -193,6 +193,16 @@ const StatusPage = ({
   );
 };
 
+function getTitle(username: string, repo: string, buildId?: number) {
+  let title = `${username}/${repo}`;
+
+  if (typeof buildId !== "undefined") {
+    title += ` #${buildId}`;
+  }
+
+  return title;
+}
+
 StatusPage.getInitialProps = async ({
   query,
   res
@@ -234,9 +244,10 @@ StatusPage.getInitialProps = async ({
       builds,
       selectedPrNumber: prNumber,
       selectedBuildId: buildId,
-      title: `${username}/${repo}`
+      title: getTitle(username, repo, buildId)
     };
   } catch (e) {
+    console.error(e);
     if (e.response) {
       if (res) {
         res.status = e.response.status;
