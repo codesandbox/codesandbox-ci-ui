@@ -17,7 +17,13 @@ export const PackagesList = ({ style, packages }: Props) => {
       title={`Packages (${packages.length})`}
     >
       {packages.map((pkg, i) => (
-        <BuildListItem href={pkg.url} target="_blank" key={pkg.url} i={i}>
+        <BuildListItem
+          href={pkg.url}
+          rel="noreferrer noopener"
+          target="_blank"
+          key={pkg.url}
+          i={i}
+        >
           {pkg.name}
         </BuildListItem>
       ))}
