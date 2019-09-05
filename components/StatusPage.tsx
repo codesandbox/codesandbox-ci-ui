@@ -237,12 +237,16 @@ StatusPage.getInitialProps = async ({
       title: `${username}/${repo}`
     };
   } catch (e) {
-    if (res) {
-      res.status = e.response.status;
-    }
+    if (e.response) {
+      if (res) {
+        res.status = e.response.status;
+      }
 
-    if (e.response.status === 404) {
-      return { notFound: true, title: "Not Found" };
+      if (e.response.status === 404) {
+        return { notFound: true, title: "Not Found" };
+      } else {
+        return { error: true };
+      }
     } else {
       return { error: true };
     }
