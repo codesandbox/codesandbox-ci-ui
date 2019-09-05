@@ -21,7 +21,7 @@ const BuildDetails = styled.div`
   padding-bottom: 1.5rem;
 
   @media screen and (max-width: 768px) {
-    padding-bottom: 2.5rem;
+    padding-bottom: 5rem;
   }
 `;
 
