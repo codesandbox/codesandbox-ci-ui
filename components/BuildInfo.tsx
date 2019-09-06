@@ -53,6 +53,7 @@ const StyledTimeAgo = styled(ReactTimeAgo)`
 const Link = styled.a.attrs({ target: "_blank", rel: "noreferrer noopener" })`
   transition: 0.3s ease color;
   color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
 
   text-decoration: none;
 
