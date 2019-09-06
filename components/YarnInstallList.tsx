@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const YarnInstallList = ({ style, packages }: Props) => {
+  const packageLinks = packages.map(p => p.url).join(" ");
   return (
     <BuildInfoItem
       collapsible
@@ -16,7 +17,11 @@ export const YarnInstallList = ({ style, packages }: Props) => {
       expandedByDefault={packages.length < 3}
       title="Local Install Instructions"
     >
-      <CodeBlock>yarn add {packages.map(p => p.url).join(" ")}</CodeBlock>
+      <CodeBlock>
+        yarn add {packageLinks}
+        <br />
+        npm i {packageLinks}
+      </CodeBlock>
     </BuildInfoItem>
   );
 };
