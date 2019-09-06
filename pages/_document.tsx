@@ -51,6 +51,8 @@ export default class MyDocument extends Document<Props> {
 
           <link rel="preload" href="/static/inter.css" as="style" />
 
+          <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+
           <link
             href="https://fonts.googleapis.com/css?family=Source+Code+Pro:600,700&display=swap"
             rel="stylesheet"

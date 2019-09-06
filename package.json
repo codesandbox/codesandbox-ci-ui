@@ -16,6 +16,7 @@
     "axios": "^0.19.0",
     "lru-cache": "^5.1.1",
     "next": "^9.0.4",
+    "nprogress": "^0.2.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-hooks-global-state": "^0.14.0",
