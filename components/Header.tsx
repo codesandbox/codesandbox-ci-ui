@@ -50,7 +50,9 @@ interface Props {
 export const Header = ({ title }: Props) => {
   return (
     <Container>
-      <StyledLogo />
+      <a style={{ display: "flex" }} href="https://codesandbox.io">
+        <StyledLogo />
+      </a>
       {title}
       <QuestionContainer
         href={LEARN_MORE_DOCUMENT_URL}
