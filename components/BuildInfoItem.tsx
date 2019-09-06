@@ -78,7 +78,7 @@ export const BuildInfoItem: React.FC<Props> = ({
         {title}
 
         {collapsible && (
-          <Button onClick={() => setShow(!show)}>
+          <Button aria-label="collapse" onClick={() => setShow(!show)}>
             <StyledCollapseIcon show={show} />
           </Button>
         )}
