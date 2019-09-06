@@ -78,6 +78,7 @@ const InfoContainer = styled.div`
 
 const StyledTimeAgo = styled(ReactTimeAgo)`
   color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 `;
 
 const Info = styled.div`
