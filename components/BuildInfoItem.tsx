@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Animate } from "react-show";
 
 import { CollapseIcon } from "./icons/Collapse";
+import { pulse } from "../utils/animation";
 
 const Header = styled.div<{ backgroundColor?: string; color?: string }>`
   position: relative;
@@ -101,6 +102,7 @@ export const BuildInfoItem: React.FC<Props> = ({
 };
 
 const SkeletonContents = styled.div`
+  ${pulse};
   width: 12rem;
   height: 1rem;
   margin: 0.75rem 1rem;
