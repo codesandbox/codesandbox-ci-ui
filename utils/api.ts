@@ -60,7 +60,7 @@ interface IPRResponse {
   prs: IPR[];
 }
 
-const BASE_URL = "https://gh.csb.dev/api";
+const BASE_URL = "https://gh.staging.csb.dev/api";
 
 const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
   maxAge: 1000 * 60
