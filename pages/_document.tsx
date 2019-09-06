@@ -64,16 +64,6 @@ export default class MyDocument extends Document<Props> {
         <body>
           <Main />
           <NextScript />
-          
-          <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-<script>
- WebFont.load({
-    google: {
-      families: ['Source Code Pro:600,700']
-    }
-  });
-</script>
-
         </body>
       </html>
     );
