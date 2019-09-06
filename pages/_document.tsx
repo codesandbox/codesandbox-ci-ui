@@ -28,13 +28,35 @@ export default class MyDocument extends Document<Props> {
     return (
       <html lang="en">
         <Head>
-          {/* Step 5: Output the styles in the head  */}
+          <link
+            crossOrigin="anonymous"
+            rel="preload"
+            href="/static/fonts/Inter-Regular.woff2"
+            as="font"
+          />
+
+          <link
+            crossOrigin="anonymous"
+            rel="preload"
+            href="/static/fonts/Inter-Medium.woff2"
+            as="font"
+          />
+
+          <link
+            crossOrigin="anonymous"
+            rel="preload"
+            href="/static/fonts/Inter-Bold.woff2"
+            as="font"
+          />
 
           <link rel="preload" href="/static/inter.css" as="style" />
+
           <link
             href="https://fonts.googleapis.com/css?family=Source+Code+Pro:600,700&display=swap"
             rel="stylesheet"
           />
+          <link rel="stylesheet" href="/static/inter.css" />
+
           {this.props.styleTags}
         </Head>
         <body>

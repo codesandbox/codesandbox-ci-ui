@@ -85,7 +85,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
       }
     }
     // eslint-disable-next-line
-  }, [prNumber, repo, username, build.id]);
+  }, [prNumber, repo, username, setBuildDetails, build.id]);
 
   useEffect(() => {
     return () => {
@@ -131,7 +131,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
               <>
                 Started <StyledTimeAgo date={+new Date(usedBuild.startedAt)} />{" "}
                 •{" "}
-                {build.status === "running" ? (
+                {usedBuild.status === "running" ? (
                   <Countdown startedAt={+new Date(usedBuild.startedAt)} />
                 ) : (
                   secondsToCounter(Math.floor(usedBuild.duration / 1000))
