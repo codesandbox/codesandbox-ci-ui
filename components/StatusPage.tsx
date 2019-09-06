@@ -126,9 +126,13 @@ const StatusPage = ({
     buildsToShow.shift();
   }
 
-  buildsToShow.unshift(latestBuild);
+  if (!buildsToShow.some(b => b.id === latestBuild.id)) {
+    buildsToShow.unshift(latestBuild);
+  }
 
-  const selectedBuild = builds.find(build => build.id === selectedBuildId);
+  const selectedBuild = buildsToShow.find(
+    build => build.id === selectedBuildId
+  );
 
   return (
     <Layout
