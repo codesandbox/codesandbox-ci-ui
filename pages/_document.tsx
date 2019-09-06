@@ -54,7 +54,7 @@ export default class MyDocument extends Document<Props> {
           <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
 
           <link
-            href="https://fonts.googleapis.com/css?family=Source+Code+Pro:600,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=&display=swap"
             rel="stylesheet"
           />
           <link rel="stylesheet" href="/static/inter.css" />
@@ -64,6 +64,16 @@ export default class MyDocument extends Document<Props> {
         <body>
           <Main />
           <NextScript />
+          
+          <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+<script>
+ WebFont.load({
+    google: {
+      families: ['Source Code Pro:600,700']
+    }
+  });
+</script>
+
         </body>
       </html>
     );
