@@ -7,12 +7,20 @@ import { RunningIcon } from "./icons/Running";
 import { FailedIcon } from "./icons/Failed";
 import { Status } from "../utils/api";
 
-const statusToIcon: { [key in Status]: React.FC } = {
+const statusToIcon: { [key in Status]: React.FC<{ title: string }> } = {
   succeeded: SuccessIcon,
   queued: QueuedIcon,
   canceled: CanceledIcon,
   running: RunningIcon,
   failed: FailedIcon
+};
+
+const statusToLabel: { [key in Status]: string } = {
+  succeeded: "Succeeded",
+  queued: "Queued",
+  canceled: "Canceled",
+  running: "Running",
+  failed: "Failed"
 };
 
 interface Props {
@@ -23,5 +31,5 @@ interface Props {
 export const StatusIcon: React.FC<Props> = ({ status, ...props }) => {
   const Icon = statusToIcon[status];
 
-  return <Icon {...props} />;
+  return <Icon title={statusToLabel[status]} {...props} />;
 };

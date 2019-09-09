@@ -1,8 +1,9 @@
 import React from "react";
 import { colors } from "../../theme/colors";
 
-export const QueuedIcon: React.FC<{}> = props => (
+export const QueuedIcon: React.FC<{ title: string }> = props => (
   <svg width={16} height={16} fill="none" {...props}>
+    <title>{props.title}</title>
     <circle cx={8} cy={8} r={8} fill={colors.gray} />
     <path
       fillRule="evenodd"
