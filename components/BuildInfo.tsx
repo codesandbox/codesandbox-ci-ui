@@ -131,7 +131,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
             ) : (
               <>
                 Started <StyledTimeAgo date={+new Date(usedBuild.startedAt)} />{" "}
-                •{" "}
+                •{" duration: "}
                 {usedBuild.status === "running" ? (
                   <Countdown startedAt={+new Date(usedBuild.startedAt)} />
                 ) : (
