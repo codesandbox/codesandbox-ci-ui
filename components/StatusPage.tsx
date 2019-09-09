@@ -15,6 +15,7 @@ import { SkeletonStatusPage } from "./SkeletonStatusPage";
 import { useGlobalState } from "../utils/state";
 import { colors } from "../theme/colors";
 import { LEARN_MORE_DOCUMENT_URL } from "../utils/constants";
+import { BUILD_LINK, buildLink, PR_LINK, prLink } from "../utils/url";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -153,8 +154,8 @@ const StatusPage = ({
                 status={pr.latestBuild.status}
                 selected={pr.number === selectedPrNumber}
                 link={{
-                  href: `/status/[username]/[repo]/pr/[prNumber]`,
-                  as: `/status/${username}/${repo}/pr/${pr.number}`
+                  href: PR_LINK,
+                  as: prLink(username, repo, pr.number)
                 }}
               />
             ))}
@@ -174,8 +175,8 @@ const StatusPage = ({
                 status={build.status}
                 selected={build.id === selectedBuildId}
                 link={{
-                  as: `/status/${username}/${repo}/pr/${selectedPrNumber}/builds/${build.id}`,
-                  href: `/status/[username]/[repo]/pr/[prNumber]/builds/[buildId]`
+                  href: BUILD_LINK,
+                  as: buildLink(username, repo, selectedPrNumber, build.id)
                 }}
               />
             ))}
@@ -240,6 +241,28 @@ StatusPage.getInitialProps = async ({
     buildId = +buildId;
 
     const { builds } = await getBuilds(username, repo, prNumber);
+
+    if (
+      !builds.some(b => b.id === buildId) &&
+      selectedPR.latestBuild.id !== buildId
+    ) {
+      // If the build is not in the list, or not in the latest build, we have a 404 and default
+      // to the latest build.
+
+      buildId = selectedPR.latestBuild.id;
+      if (res) {
+        res.writeHead(302, {
+          Location: buildLink(
+            username,
+            repo,
+            selectedPR.number,
+            selectedPR.latestBuild.id
+          )
+        });
+        res.end();
+        return;
+      }
+    }
 
     return {
       username,
