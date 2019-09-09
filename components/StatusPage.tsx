@@ -57,6 +57,7 @@ const WrapperDetails = styled.div<WrapperProps>`
     display: ${props => (!props.selectedBuild ? "none" : "block")};
   }
   width: 100%;
+  overflow: hidden;
 `;
 
 export interface StatusPageProps {
