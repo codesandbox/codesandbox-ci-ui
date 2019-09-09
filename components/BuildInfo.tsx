@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { StatusIcon } from "./StatusIcon";
 import styled from "styled-components";
-import ReactTimeAgo from "react-time-ago";
 import { IBuild, IBuildDetails, getBuildDetails } from "../utils/api";
 import { LogsContainer } from "./LogsContainer";
 import { secondsToCounter } from "../utils/countdown";
@@ -11,6 +10,7 @@ import { PackagesList } from "./PackagesList";
 import { BuildInfoItemSkeleton } from "./BuildInfoItem";
 import { YarnInstallList } from "./YarnInstallList";
 import { useGlobalState } from "../utils/state";
+import { TimeAgo } from "./TimeAgo";
 
 const Container = styled.div`
   height: 100%;
@@ -46,7 +46,7 @@ const Description = styled.div`
   color: ${props => props.theme.gray};
 `;
 
-const StyledTimeAgo = styled(ReactTimeAgo)`
+const StyledTimeAgo = styled(TimeAgo)`
   color: ${props => props.theme.gray};
 `;
 

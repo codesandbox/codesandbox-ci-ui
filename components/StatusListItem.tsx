@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import styled, { css } from "styled-components";
-import ReactTimeAgo from "react-time-ago";
 import { StatusIcon } from "./StatusIcon";
 import { Status } from "../utils/api";
+import { TimeAgo } from "./TimeAgo";
 
 const Container = styled.a<{ selected: boolean | undefined }>`
   transition: 0.2s ease background-color;
@@ -76,7 +76,7 @@ const InfoContainer = styled.div`
   width: 100%;
 `;
 
-const StyledTimeAgo = styled(ReactTimeAgo)`
+const StyledTimeAgo = styled(TimeAgo)`
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
 `;
