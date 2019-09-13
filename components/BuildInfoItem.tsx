@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Animate } from "react-show";
 
 import { CollapseIcon } from "./icons/Collapse";
@@ -34,7 +34,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Contents = styled.div`
+const Contents = styled.div<{ scrollable?: boolean }>`
   background-color: ${props => props.theme.bg1};
   font-size: 0.8125rem;
   border: 1px solid ${props => props.theme.bg3};
@@ -43,7 +43,11 @@ const Contents = styled.div`
   margin: 0;
   max-width: 100%;
   width: 100%;
-  overflow: auto;
+  ${props =>
+    props.scrollable &&
+    css`
+      overflow: auto;
+    `}
 `;
 
 const StyledCollapseIcon = styled(CollapseIcon)<{ show: boolean }>`
@@ -59,6 +63,7 @@ interface Props {
   collapsible?: boolean;
   expandedByDefault?: boolean;
   title: string;
+  scrollable?: boolean;
 }
 
 export const BuildInfoItem: React.FC<Props> = ({
@@ -69,7 +74,8 @@ export const BuildInfoItem: React.FC<Props> = ({
   headerColor,
   headerBGColor,
   children,
-  style
+  style,
+  scrollable
 }) => {
   const [show, setShow] = React.useState(expandedByDefault);
   return (
@@ -95,7 +101,9 @@ export const BuildInfoItem: React.FC<Props> = ({
           // If the 'leave' prop isn't defined, 'start' is reused!
         }}
       >
-        <Contents ref={contentsRef}>{children}</Contents>
+        <Contents scrollable={scrollable} ref={contentsRef}>
+          {children}
+        </Contents>
       </Animate>
     </div>
   );

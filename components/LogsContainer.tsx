@@ -73,6 +73,7 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
       headerColor={statusInfo.color}
       headerBGColor={statusInfo.backgroundColor}
       contentsRef={contentsRef}
+      scrollable
     >
       <CodeWrapper>
         <CodeBlock
