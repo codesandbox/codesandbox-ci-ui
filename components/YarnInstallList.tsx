@@ -13,6 +13,7 @@ export const YarnInstallList = ({ style, packages }: Props) => {
   return (
     <BuildInfoItem
       collapsible
+      scrollable
       style={style}
       expandedByDefault={packages.length < 3}
       title="Local Install Instructions"
