@@ -4,11 +4,14 @@ import { Animate } from "react-show";
 
 import { CollapseIcon } from "./icons/Collapse";
 import { pulse } from "../utils/animation";
+import { lightenDarkenColor } from "../theme/colors";
 
-const Header = styled.div<{ backgroundColor?: string; color?: string }>`
+const headerStyles = css<{ backgroundColor?: string; color?: string }>`
   position: relative;
   display: flex;
   align-items: center;
+  outline: 0;
+  padding: 0;
   padding-left: 1rem;
   height: 2rem;
   width: 100%;
@@ -22,7 +25,24 @@ const Header = styled.div<{ backgroundColor?: string; color?: string }>`
   border: 1px solid ${props => props.theme.bg3};
 `;
 
-const Button = styled.button`
+const Header = styled.div<{ backgroundColor?: string; color?: string }>`
+  ${headerStyles}
+`;
+
+const HeaderButton = styled.button<{
+  backgroundColor?: string;
+  color?: string;
+}>`
+  transition: 0.3s ease background-color;
+  ${headerStyles}
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => lightenDarkenColor(props.theme.bg3, 10)};
+  }
+`;
+
+const CollapsibleContainer = styled.div`
   position: absolute;
   right: 1rem;
   outline: 0;
@@ -35,6 +55,8 @@ const Button = styled.button`
 `;
 
 const Contents = styled.div<{ scrollable?: boolean }>`
+  display: flex;
+  flex-direction: column;
   background-color: ${props => props.theme.bg1};
   font-size: 0.8125rem;
   border: 1px solid ${props => props.theme.bg3};
@@ -78,17 +100,27 @@ export const BuildInfoItem: React.FC<Props> = ({
   scrollable
 }) => {
   const [show, setShow] = React.useState(expandedByDefault);
+
+  const HeaderComponent = collapsible ? HeaderButton : Header;
   return (
     <div style={style}>
-      <Header color={headerColor} backgroundColor={headerBGColor}>
+      <HeaderComponent
+        aria-label={collapsible ? "collapse" : undefined}
+        onClick={collapsible ? () => setShow(!show) : undefined}
+        color={headerColor}
+        backgroundColor={headerBGColor}
+      >
         {title}
 
         {collapsible && (
-          <Button aria-label="collapse" onClick={() => setShow(!show)}>
+          <CollapsibleContainer
+            aria-label="collapse"
+            onClick={() => setShow(!show)}
+          >
             <StyledCollapseIcon show={show} />
-          </Button>
+          </CollapsibleContainer>
         )}
-      </Header>
+      </HeaderComponent>
       <Animate
         show={show}
         duration={300}
