@@ -61,7 +61,7 @@ interface IPRResponse {
 }
 
 const BASE_URL =
-  process.env.NODE_ENV === "production"
+  process.env.NOW_GITHUB_COMMIT_REF === "master"
     ? "https://gh.csb.dev/api"
     : "https://gh.staging.csb.dev/api";
 
