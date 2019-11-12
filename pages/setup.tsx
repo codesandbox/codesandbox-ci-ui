@@ -1,7 +1,7 @@
 import React from "react";
 import { SkeletonStatusPage } from "../components/SkeletonStatusPage";
 import { LEARN_MORE_DOCUMENTATION_URL } from "../utils/constants";
-import { Title, Description } from "./_elements";
+import { Title, Description } from "../components/_elements";
 import { ConfigExamples } from "../components/ConfigExamples";
 import { colors } from "../theme/colors";
 

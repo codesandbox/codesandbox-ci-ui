@@ -5,7 +5,13 @@ import {
   LEARN_MORE_DOCUMENT_URL,
   INSTALL_GITHUB_URL
 } from "../utils/constants";
-import { Title, SubTitle, ButtonContainer, Link, Button } from "./_elements";
+import {
+  Title,
+  SubTitle,
+  ButtonContainer,
+  Link,
+  Button
+} from "../components/_elements";
 
 export default () => (
   <SkeletonStatusPage>
