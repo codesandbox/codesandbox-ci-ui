@@ -4,14 +4,23 @@ import Head from "next/head";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { GlobalStateProvider } from "../utils/state";
+import { track } from "../utils/analytics";
 
 Router.events.on("routeChangeStart", () => {
   NProgress.start();
 });
-Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeComplete", () => {
+  NProgress.done();
+  track("pageview");
+});
+
 Router.events.on("routeChangeError", () => NProgress.done());
 
 export default class CodeSandboxCI extends App {
+  componentDidMount() {
+    track("pageview");
+  }
+
   render() {
     const { Component, pageProps } = this.props;
 
