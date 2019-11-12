@@ -31,7 +31,7 @@ export function track(eventName: string, metadata: object = {}) {
     const newMetadata = {
       ...metadata,
       path: location.pathname + location.search,
-      codeSandboxCI: true
+      source: "codesandbox-ci"
     };
 
     getAmplitude().logEvent(eventName, newMetadata);
