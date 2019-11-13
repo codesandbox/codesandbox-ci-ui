@@ -15,7 +15,7 @@ export const YarnInstallList = ({ style, packages }: Props) => {
       collapsible
       scrollable
       style={style}
-      expandedByDefault={packages.length < 3}
+      expandedByDefault={packages.length < 4}
       title="Local Install Instructions"
     >
       <CodeBlock>

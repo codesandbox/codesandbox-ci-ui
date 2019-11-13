@@ -14,8 +14,13 @@ import { Layout } from "./Layout";
 import { SkeletonStatusPage } from "./SkeletonStatusPage";
 import { useGlobalState } from "../utils/state";
 import { colors } from "../theme/colors";
-import { LEARN_MORE_DOCUMENT_URL } from "../utils/constants";
+import {
+  LEARN_MORE_DOCUMENT_URL,
+  INSTALL_GITHUB_URL
+} from "../utils/constants";
 import { BUILD_LINK, buildLink, PR_LINK, prLink } from "../utils/url";
+import { SetupPage } from "./SetupPage";
+import { Button } from "./_elements";
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -68,6 +73,7 @@ export interface StatusPageProps {
   selectedBuildId: number;
   builds?: IBuild[];
   notFound?: boolean;
+  showSetup?: boolean;
   error?: boolean;
 }
 
@@ -79,6 +85,7 @@ const StatusPage = ({
   selectedBuildId,
   builds,
   notFound,
+  showSetup,
   error
 }: StatusPageProps) => {
   const [statePrs, setPrs] = useGlobalState("prs");
@@ -89,14 +96,28 @@ const StatusPage = ({
     setPrs(prs);
   }, [username, repo, prs, setPrs]);
 
+  if (showSetup) {
+    return <SetupPage />;
+  }
+
+  if (notFound) {
+    return (
+      <SkeletonStatusPage>
+        <ErrorMessage>
+          We could not find the repository you were looking for, have you
+          installed the GitHub App?
+        </ErrorMessage>
+
+        <Button href={INSTALL_GITHUB_URL}>Install GitHub App</Button>
+      </SkeletonStatusPage>
+    );
+  }
+
   if (notFound || error) {
     return (
       <SkeletonStatusPage>
         <ErrorMessage>
-          {notFound
-            ? `We could not find the repository you were looking for, have you
-            installed the GitHub App?`
-            : `We just got an error, please retry in a couple minutes!`}
+          We just got an error, please retry in a couple minutes!
         </ErrorMessage>
       </SkeletonStatusPage>
     );
@@ -213,7 +234,12 @@ StatusPage.getInitialProps = async ({
   query,
   res
 }): Promise<
-  { title?: string } & (StatusPageProps | { notFound: true } | { error: true })
+  { title?: string } & (
+    | StatusPageProps
+    | { notFound: true }
+    | { showSetup: true }
+    | { error: true }
+  )
 > => {
   try {
     const { username, repo } = query;
@@ -227,6 +253,13 @@ StatusPage.getInitialProps = async ({
     }
 
     const { prs } = await getPrs(username, repo);
+
+    if (prs.length === 0) {
+      // No PRs have been registered yet
+
+      return { showSetup: true, title: "CodeSandbox CI Installed" };
+    }
+
     let prNumber = query.prNumber;
     if (!prNumber) {
       prNumber = prs[0].number;

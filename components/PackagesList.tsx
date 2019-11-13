@@ -13,7 +13,7 @@ export const PackagesList = ({ style, packages }: Props) => {
     <BuildInfoItem
       collapsible
       style={style}
-      expandedByDefault={packages.length < 3}
+      expandedByDefault={packages.length < 4}
       title={`Packages (${packages.length})`}
     >
       {packages.map((pkg, i) => (

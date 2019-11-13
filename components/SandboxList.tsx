@@ -34,7 +34,7 @@ export const SandboxList = ({ style, sandboxes }: Props) => {
         <BuildListItem
           href={sandbox.url}
           target="_blank"
-          rel="noreferrer noopener"
+          rel="noopener"
           key={sandbox.url}
           i={i}
         >
