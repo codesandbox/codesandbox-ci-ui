@@ -122,9 +122,11 @@ export async function getBuildDetails(
   prNumber: number,
   buildId: number
 ): Promise<IBuildDetailsResponse> {
-  const response = (await axios.get(
-    `${BASE_URL}/${username}/${repo}/prs/${prNumber}/builds/${buildId}`
-  )).data;
+  const response = (
+    await axios.get(
+      `${BASE_URL}/${username}/${repo}/prs/${prNumber}/builds/${buildId}`
+    )
+  ).data;
 
   return response;
 }
