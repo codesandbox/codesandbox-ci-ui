@@ -60,7 +60,10 @@ interface IPRResponse {
   prs: IPR[];
 }
 
-const BASE_URL = "https://gh.csb.dev/api";
+const BASE_URL =
+  process.env.NOW_GITHUB_COMMIT_REF === "master"
+    ? "https://gh.csb.dev/api"
+    : "https://gh.staging.csb.dev/api";
 
 const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
   maxAge: 1000 * 60
