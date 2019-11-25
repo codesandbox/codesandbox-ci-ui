@@ -45,15 +45,23 @@ const QuestionContainer = styled.a`
 
 interface Props {
   title: string;
+  owner: string;
+  repo: string;
 }
 
-export const Header = ({ title }: Props) => {
+export const Header = ({ title, owner, repo }: Props) => {
   return (
     <Container>
       <a style={{ display: "flex" }} href="https://codesandbox.io">
         <StyledLogo />
       </a>
-      {title}
+      <a
+        href={`https://github.com/${owner}/${repo}`}
+        target="_blank"
+        rel="noreferrer noopener nofollow"
+      >
+        {title}
+      </a>
       <QuestionContainer
         href={LEARN_MORE_DOCUMENT_URL}
         target="_blank"

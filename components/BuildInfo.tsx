@@ -120,7 +120,14 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
 
         <div>
           <Title>
-            {username}/{repo}
+            <a
+              href={`https://github.com/${username}/${repo}`}
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+              style={{ fontWeight: 300 }}
+            >
+              {username}/{repo}
+            </a>
             &nbsp;&nbsp;&nbsp;&nbsp;
             {`#${usedBuild.id}`}
           </Title>

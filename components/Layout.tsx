@@ -103,7 +103,11 @@ export const Layout: React.FC<Props> = ({
   <ThemeProvider theme={colors}>
     <Main>
       <GlobalStyles />
-      <Header title={title || `${username}/${repo}`} />
+      <Header
+        owner={username}
+        repo={repo}
+        title={title || `${username}/${repo}`}
+      />
 
       {selectedPr && !selectedBuild ? (
         <BreadCrumbs>

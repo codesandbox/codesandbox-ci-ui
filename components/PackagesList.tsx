@@ -19,7 +19,7 @@ export const PackagesList = ({ style, packages }: Props) => {
       {packages.map((pkg, i) => (
         <BuildListItem
           href={pkg.url}
-          rel="noreferrer noopener"
+          rel="noreferrer noopener nofollow"
           target="_blank"
           key={pkg.url}
           i={i}
