@@ -55,13 +55,17 @@ export const Header = ({ title, owner, repo }: Props) => {
       <a style={{ display: "flex" }} href="https://codesandbox.io">
         <StyledLogo />
       </a>
-      <a
-        href={`https://github.com/${owner}/${repo}`}
-        target="_blank"
-        rel="noreferrer noopener nofollow"
-      >
-        {title}
-      </a>
+      {owner && repo ? (
+        <a
+          href={`https://github.com/${owner}/${repo}`}
+          target="_blank"
+          rel="noreferrer noopener nofollow"
+        >
+          {title}
+        </a>
+      ) : (
+        <div>{title}</div>
+      )}
       <QuestionContainer
         href={LEARN_MORE_DOCUMENT_URL}
         target="_blank"
