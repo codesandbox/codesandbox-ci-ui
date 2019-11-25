@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Logo } from "./icons/Logo";
-import { QuestionIcon } from "./icons/Question";
-import { LEARN_MORE_DOCUMENT_URL } from "../utils/constants";
+import { Logo } from './icons/Logo';
+import { QuestionIcon } from './icons/Question';
+import { LEARN_MORE_DOCUMENT_URL } from '../utils/constants';
 
-export const HEADER_HEIGHT = "2.5rem";
+export const HEADER_HEIGHT = '2.5rem';
 
 const Container = styled.header`
   position: relative;
@@ -52,7 +52,7 @@ interface Props {
 export const Header = ({ title, owner, repo }: Props) => {
   return (
     <Container>
-      <a style={{ display: "flex" }} href="https://codesandbox.io">
+      <a style={{ display: 'flex' }} href="https://codesandbox.io">
         <StyledLogo />
       </a>
       {owner && repo ? (

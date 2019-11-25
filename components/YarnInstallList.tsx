@@ -1,7 +1,7 @@
-import React from "react";
-import { BuildInfoItem } from "./BuildInfoItem";
-import { IPackage } from "../utils/api";
-import { CodeBlock } from "./CodeBlock";
+import React from 'react';
+import { BuildInfoItem } from './BuildInfoItem';
+import { IPackage } from '../utils/api';
+import { CodeBlock } from './CodeBlock';
 
 interface Props {
   style?: React.CSSProperties;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const YarnInstallList = ({ style, packages }: Props) => {
-  const packageLinks = packages.map(p => p.url).join(" ");
+  const packageLinks = packages.map(p => p.url).join(' ');
   return (
     <BuildInfoItem
       collapsible

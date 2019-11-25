@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { secondsToCounter } from "../utils/countdown";
+import React, { useEffect } from 'react';
+import { secondsToCounter } from '../utils/countdown';
 
 interface Props {
   startedAt: number;

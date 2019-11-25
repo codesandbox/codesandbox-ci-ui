@@ -1,5 +1,5 @@
-import React from "react";
-import { colors } from "../../theme/colors";
+import React from 'react';
+import { colors } from '../../theme/colors';
 
 export const CollapseIcon: React.FC<{
   className?: string;

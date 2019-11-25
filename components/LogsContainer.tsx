@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import Ansi from "ansi-to-react";
-import { Status } from "../utils/api";
-import { colors } from "../theme/colors";
-import { secondsToCounter } from "../utils/countdown";
-import { BuildInfoItem } from "./BuildInfoItem";
-import { CodeBlock } from "./CodeBlock";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import Ansi from 'ansi-to-react';
+import { Status } from '../utils/api';
+import { colors } from '../theme/colors';
+import { secondsToCounter } from '../utils/countdown';
+import { BuildInfoItem } from './BuildInfoItem';
+import { CodeBlock } from './CodeBlock';
 
 interface Props {
   status: Status;
@@ -20,39 +20,39 @@ const CodeWrapper = styled.div`
 
 const getStatusInfo = (status: Status, duration: number) => {
   switch (status) {
-    case "canceled":
+    case 'canceled':
       return {
         message: `Build canceled in ${secondsToCounter(
           Math.floor(duration / 1000)
         )}`,
         backgroundColor: colors.gray,
-        color: colors.white
+        color: colors.white,
       };
-    case "succeeded":
+    case 'succeeded':
       return {
-        message: "Finished!",
+        message: 'Finished!',
         backgroundColor: colors.bg3,
-        color: colors.white
+        color: colors.white,
       };
-    case "running":
+    case 'running':
       return {
-        message: "Running...",
+        message: 'Running...',
         backgroundColor: colors.white,
-        color: colors.black
+        color: colors.black,
       };
-    case "failed":
+    case 'failed':
       return {
         message: `Build failed in ${secondsToCounter(
           Math.floor(duration / 1000)
         )}`,
         backgroundColor: colors.red,
-        color: colors.white
+        color: colors.white,
       };
-    case "queued":
+    case 'queued':
       return {
-        message: "Queued",
+        message: 'Queued',
         backgroundColor: colors.white,
-        color: colors.black
+        color: colors.black,
       };
   }
 };
@@ -77,16 +77,16 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
     >
       <CodeWrapper>
         <CodeBlock
-          style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0 }}
+          style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}
         >
           {log ? (
-            <span style={{ color: "#ccc", display: "block" }}>
+            <span style={{ color: '#ccc', display: 'block' }}>
               <Ansi linkify={false}>{log}</Ansi>
             </span>
-          ) : status === "queued" ? (
-            "Waiting to be built..."
+          ) : status === 'queued' ? (
+            'Waiting to be built...'
           ) : (
-            "Loading..."
+            'Loading...'
           )}
 
           <br />

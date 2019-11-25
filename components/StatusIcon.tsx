@@ -1,26 +1,26 @@
-import React from "react";
+import React from 'react';
 
-import { SuccessIcon } from "./icons/Success";
-import { QueuedIcon } from "./icons/Queued";
-import { CanceledIcon } from "./icons/Canceled";
-import { RunningIcon } from "./icons/Running";
-import { FailedIcon } from "./icons/Failed";
-import { Status } from "../utils/api";
+import { SuccessIcon } from './icons/Success';
+import { QueuedIcon } from './icons/Queued';
+import { CanceledIcon } from './icons/Canceled';
+import { RunningIcon } from './icons/Running';
+import { FailedIcon } from './icons/Failed';
+import { Status } from '../utils/api';
 
 const statusToIcon: { [key in Status]: React.FC<{ title: string }> } = {
   succeeded: SuccessIcon,
   queued: QueuedIcon,
   canceled: CanceledIcon,
   running: RunningIcon,
-  failed: FailedIcon
+  failed: FailedIcon,
 };
 
 const statusToLabel: { [key in Status]: string } = {
-  succeeded: "Succeeded",
-  queued: "Queued",
-  canceled: "Canceled",
-  running: "Running",
-  failed: "Failed"
+  succeeded: 'Succeeded',
+  queued: 'Queued',
+  canceled: 'Canceled',
+  running: 'Running',
+  failed: 'Failed',
 };
 
 interface Props {

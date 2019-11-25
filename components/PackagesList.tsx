@@ -1,7 +1,7 @@
-import React from "react";
-import { BuildInfoItem } from "./BuildInfoItem";
-import { IPackage } from "../utils/api";
-import { BuildListItem } from "./BuildListItem";
+import React from 'react';
+import { BuildInfoItem } from './BuildInfoItem';
+import { IPackage } from '../utils/api';
+import { BuildListItem } from './BuildListItem';
 
 interface Props {
   style?: React.CSSProperties;

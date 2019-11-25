@@ -1,5 +1,5 @@
-import React from "react";
-import { colors } from "../../theme/colors";
+import React from 'react';
+import { colors } from '../../theme/colors';
 
 export const QueuedIcon: React.FC<{ title: string }> = props => (
   <svg width={16} height={16} fill="none" {...props}>

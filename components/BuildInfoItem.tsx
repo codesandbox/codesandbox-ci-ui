@@ -1,10 +1,10 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { Animate } from "react-show";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { Animate } from 'react-show';
 
-import { CollapseIcon } from "./icons/Collapse";
-import { pulse } from "../utils/animation";
-import { lightenDarkenColor } from "../theme/colors";
+import { CollapseIcon } from './icons/Collapse';
+import { pulse } from '../utils/animation';
+import { lightenDarkenColor } from '../theme/colors';
 
 const headerStyles = css<{ backgroundColor?: string; color?: string }>`
   position: relative;
@@ -20,7 +20,7 @@ const headerStyles = css<{ backgroundColor?: string; color?: string }>`
   font-size: 0.8125rem;
 
   background-color: ${props => props.backgroundColor || props.theme.bg3};
-  color: ${props => props.color || "white"};
+  color: ${props => props.color || 'white'};
 
   border: 1px solid ${props => props.theme.bg3};
 `;
@@ -97,7 +97,7 @@ export const BuildInfoItem: React.FC<Props> = ({
   headerBGColor,
   children,
   style,
-  scrollable
+  scrollable,
 }) => {
   const [show, setShow] = React.useState(expandedByDefault);
 
@@ -105,7 +105,7 @@ export const BuildInfoItem: React.FC<Props> = ({
   return (
     <div style={style}>
       <HeaderComponent
-        aria-label={collapsible ? "collapse" : undefined}
+        aria-label={collapsible ? 'collapse' : undefined}
         onClick={collapsible ? () => setShow(!show) : undefined}
         color={headerColor}
         backgroundColor={headerBGColor}
@@ -125,11 +125,11 @@ export const BuildInfoItem: React.FC<Props> = ({
         show={show}
         duration={300}
         style={{
-          height: "auto",
-          overflow: "hidden"
+          height: 'auto',
+          overflow: 'hidden',
         }}
         start={{
-          height: 0 // The starting style for the component.
+          height: 0, // The starting style for the component.
           // If the 'leave' prop isn't defined, 'start' is reused!
         }}
       >
@@ -151,7 +151,7 @@ const SkeletonContents = styled.div`
 
 export const BuildInfoItemSkeleton = ({
   title,
-  style
+  style,
 }: {
   title: string;
   style?: React.CSSProperties;

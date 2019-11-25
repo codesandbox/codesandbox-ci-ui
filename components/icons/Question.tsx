@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const QuestionIcon: React.FC<{}> = props => (
   <svg width={20} height={20} fill="none" {...props}>

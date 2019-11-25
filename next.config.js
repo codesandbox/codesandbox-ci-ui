@@ -1,3 +1,3 @@
 module.exports = {
-  serverless: true
+  serverless: true,
 };
