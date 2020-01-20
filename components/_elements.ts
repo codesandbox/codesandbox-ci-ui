@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Title = styled.h1`
   font-size: 19px;
@@ -47,7 +47,7 @@ export const Button = styled.a`
   border-radius: 4px;
   border: 0;
   padding: 0.5rem 2rem;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;

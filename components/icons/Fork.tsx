@@ -1,5 +1,5 @@
-import React from "react";
-import { colors } from "../../theme/colors";
+import React from 'react';
+import { colors } from '../../theme/colors';
 
 export const ForkIcon: React.FC<{}> = props => (
   <svg width={121} height={122} fill="none" {...props}>

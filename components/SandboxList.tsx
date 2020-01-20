@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import Logo from "@codesandbox/common/lib/components/Logo";
-import { BuildInfoItem } from "./BuildInfoItem";
-import { ISandbox } from "../utils/api";
-import { BuildListItem } from "./BuildListItem";
+import React from 'react';
+import styled from 'styled-components';
+import Logo from '@codesandbox/common/lib/components/Logo';
+import { BuildInfoItem } from './BuildInfoItem';
+import { ISandbox } from '../utils/api';
+import { BuildListItem } from './BuildListItem';
 
 const StyledLogo = styled(Logo)`
   width: 1rem;

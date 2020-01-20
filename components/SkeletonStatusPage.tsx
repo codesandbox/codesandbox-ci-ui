@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Layout } from "./Layout";
-import { StatusList } from "./StatusList";
-import { StatusListSkeletonItem } from "./StatusListItem";
-import { ForkIcon } from "./icons/Fork";
+import { Layout } from './Layout';
+import { StatusList } from './StatusList';
+import { StatusListSkeletonItem } from './StatusListItem';
+import { ForkIcon } from './icons/Fork';
 
 const Container = styled.div`
   display: flex;

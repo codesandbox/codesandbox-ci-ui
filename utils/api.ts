@@ -1,16 +1,16 @@
-import axios from "axios";
-import Cache from "lru-cache";
+import axios from 'axios';
+import Cache from 'lru-cache';
 
-export type Status = "queued" | "canceled" | "running" | "failed" | "succeeded";
+export type Status = 'queued' | 'canceled' | 'running' | 'failed' | 'succeeded';
 
 type NotStartedBuild = {
-  status: "queued";
+  status: 'queued';
   startedAt: null;
   duration: null;
 };
 
 type StartedBuild = {
-  status: "canceled" | "running" | "failed" | "succeeded";
+  status: 'canceled' | 'running' | 'failed' | 'succeeded';
   startedAt: string;
   duration: number;
 };
@@ -60,10 +60,10 @@ interface IPRResponse {
   prs: IPR[];
 }
 
-const BASE_URL = "https://gh.csb.dev/api";
+const BASE_URL = 'https://gh.csb.dev/api';
 
 const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
-  maxAge: 1000 * 60
+  maxAge: 1000 * 60,
 });
 
 export async function getPrs(
@@ -88,7 +88,7 @@ interface IBuildResponse {
 }
 
 const buildsCache = new Cache<string, Promise<{ data: IBuildResponse }>>({
-  maxAge: 1000 * 60
+  maxAge: 1000 * 60,
 });
 
 export async function getBuilds(

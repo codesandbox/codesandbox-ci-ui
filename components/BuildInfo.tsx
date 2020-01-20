@@ -1,16 +1,16 @@
-import React, { useEffect, useCallback } from "react";
-import { StatusIcon } from "./StatusIcon";
-import styled from "styled-components";
-import { IBuild, IBuildDetails, getBuildDetails } from "../utils/api";
-import { LogsContainer } from "./LogsContainer";
-import { secondsToCounter } from "../utils/countdown";
-import { Countdown } from "./Countdown";
-import { SandboxList } from "./SandboxList";
-import { PackagesList } from "./PackagesList";
-import { BuildInfoItemSkeleton } from "./BuildInfoItem";
-import { YarnInstallList } from "./YarnInstallList";
-import { useGlobalState } from "../utils/state";
-import { TimeAgo } from "./TimeAgo";
+import React, { useEffect, useCallback } from 'react';
+import { StatusIcon } from './StatusIcon';
+import styled from 'styled-components';
+import { IBuild, IBuildDetails, getBuildDetails } from '../utils/api';
+import { LogsContainer } from './LogsContainer';
+import { secondsToCounter } from '../utils/countdown';
+import { Countdown } from './Countdown';
+import { SandboxList } from './SandboxList';
+import { PackagesList } from './PackagesList';
+import { BuildInfoItemSkeleton } from './BuildInfoItem';
+import { YarnInstallList } from './YarnInstallList';
+import { useGlobalState } from '../utils/state';
+import { TimeAgo } from './TimeAgo';
 
 const Container = styled.div`
   height: 100%;
@@ -50,7 +50,7 @@ const StyledTimeAgo = styled(TimeAgo)`
   color: ${props => props.theme.gray};
 `;
 
-const Link = styled.a.attrs({ target: "_blank", rel: "noreferrer noopener" })`
+const Link = styled.a.attrs({ target: '_blank', rel: 'noreferrer noopener' })`
   transition: 0.3s ease color;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
@@ -71,7 +71,7 @@ interface Props {
 
 export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const [buildDetails, setBuildDetails] = React.useState<IBuildDetails>();
-  const [prs, setPrs] = useGlobalState("prs");
+  const [prs, setPrs] = useGlobalState('prs');
 
   const fetchBuildDetails = useCallback(async () => {
     const res = await getBuildDetails(username, repo, prNumber, build.id);
@@ -101,7 +101,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
   const usedBuild = buildDetails || build;
   useEffect(() => {
     function tick() {
-      if (usedBuild.status === "running" || usedBuild.status === "queued") {
+      if (usedBuild.status === 'running' || usedBuild.status === 'queued') {
         fetchBuildDetails();
       }
     }
@@ -114,7 +114,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
     <Container>
       <TitleContainer>
         <StatusIcon
-          style={{ marginRight: ".5rem", marginTop: ".1875rem" }}
+          style={{ marginRight: '.5rem', marginTop: '.1875rem' }}
           status={usedBuild.status}
         />
 
@@ -133,13 +133,13 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
           </Title>
 
           <Description>
-            {usedBuild.status === "queued" ? (
+            {usedBuild.status === 'queued' ? (
               `Queued`
             ) : (
               <>
-                Started <StyledTimeAgo date={+new Date(usedBuild.startedAt)} />{" "}
-                •{" duration: "}
-                {usedBuild.status === "running" ? (
+                Started <StyledTimeAgo date={+new Date(usedBuild.startedAt)} />{' '}
+                •{' duration: '}
+                {usedBuild.status === 'running' ? (
                   <Countdown startedAt={+new Date(usedBuild.startedAt)} />
                 ) : (
                   secondsToCounter(Math.floor(usedBuild.duration / 1000))
@@ -149,14 +149,14 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
             <br />
             <Link href={`https://github.com/${usedBuild.commitAuthor}`}>
               {usedBuild.commitAuthor}
-            </Link>{" "}
-            opened pull request{" "}
+            </Link>{' '}
+            opened pull request{' '}
             <Link
               href={`https://github.com/${username}/${repo}/pull/${prNumber}`}
             >
               #{prNumber}
-            </Link>{" "}
-            to{" "}
+            </Link>{' '}
+            to{' '}
             <Link
               href={`https://github.com/${username}/${repo}/tree/${usedBuild.targetBranch}`}
             >
@@ -170,14 +170,14 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         {buildDetails && buildDetails.sandboxes != null
           ? buildDetails.sandboxes.length > 0 && (
               <SandboxList
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: '1rem' }}
                 sandboxes={buildDetails.sandboxes}
               />
             )
           : build &&
-            build.status === "succeeded" && (
+            build.status === 'succeeded' && (
               <BuildInfoItemSkeleton
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: '1rem' }}
                 title="Loading Sandboxes..."
               />
             )}
@@ -185,14 +185,14 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         {buildDetails && buildDetails.packages != null
           ? buildDetails.packages.length > 0 && (
               <PackagesList
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: '1rem' }}
                 packages={buildDetails.packages}
               />
             )
           : build &&
-            build.status === "succeeded" && (
+            build.status === 'succeeded' && (
               <BuildInfoItemSkeleton
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: '1rem' }}
                 title="Loading Packages..."
               />
             )}
@@ -200,14 +200,14 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         {buildDetails && buildDetails.packages != null
           ? buildDetails.packages.length > 0 && (
               <YarnInstallList
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: '1rem' }}
                 packages={buildDetails.packages}
               />
             )
           : build &&
-            build.status === "succeeded" && (
+            build.status === 'succeeded' && (
               <BuildInfoItemSkeleton
-                style={{ marginBottom: "1rem" }}
+                style={{ marginBottom: '1rem' }}
                 title="Loading Install Instructions..."
               />
             )}
@@ -215,7 +215,7 @@ export const BuildInfo = ({ username, repo, prNumber, build }: Props) => {
         <LogsContainer
           duration={usedBuild.duration}
           status={usedBuild.status}
-          log={usedBuild["log"]}
+          log={usedBuild['log']}
         />
       </BuildDetails>
     </Container>

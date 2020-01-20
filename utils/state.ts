@@ -1,5 +1,5 @@
-import * as state from "react-hooks-global-state";
-import { IPR } from "./api";
+import * as state from 'react-hooks-global-state';
+import { IPR } from './api';
 
 export interface IState {
   prs: IPR[];
@@ -8,7 +8,7 @@ export interface IState {
 export const {
   GlobalStateProvider,
   setGlobalState,
-  useGlobalState
+  useGlobalState,
 } = state.createGlobalState<IState>({
-  prs: undefined
+  prs: undefined,
 });

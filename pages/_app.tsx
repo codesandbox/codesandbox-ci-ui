@@ -1,24 +1,24 @@
-import React from "react";
-import App, { Container } from "next/app";
-import Head from "next/head";
-import Router from "next/router";
-import NProgress from "nprogress";
-import { GlobalStateProvider } from "../utils/state";
-import { track } from "../utils/analytics";
+import React from 'react';
+import App, { Container } from 'next/app';
+import Head from 'next/head';
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import { GlobalStateProvider } from '../utils/state';
+import { track } from '../utils/analytics';
 
-Router.events.on("routeChangeStart", () => {
+Router.events.on('routeChangeStart', () => {
   NProgress.start();
 });
-Router.events.on("routeChangeComplete", () => {
+Router.events.on('routeChangeComplete', () => {
   NProgress.done();
-  track("pageview");
+  track('pageview');
 });
 
-Router.events.on("routeChangeError", () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 export default class CodeSandboxCI extends App {
   componentDidMount() {
-    track("pageview");
+    track('pageview');
   }
 
   render() {
@@ -31,7 +31,7 @@ export default class CodeSandboxCI extends App {
             <title>
               {pageProps.title
                 ? `${pageProps.title} - CodeSandbox CI`
-                : "CodeSandbox CI"}
+                : 'CodeSandbox CI'}
             </title>
 
             <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />

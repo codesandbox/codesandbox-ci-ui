@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../theme/colors";
+import styled from 'styled-components';
+import { colors } from '../theme/colors';
 
 export const BuildListItem = styled.a<{ i: number }>`
   transition: 0.3s ease background-color;

@@ -1,7 +1,7 @@
-import React from "react";
-import Document, { Head, Main, NextScript } from "next/document";
+import React from 'react';
+import Document, { Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
-import { ServerStyleSheet } from "styled-components";
+import { ServerStyleSheet } from 'styled-components';
 
 interface Props {
   styleTags: JSX.Element;
@@ -15,7 +15,7 @@ export default class MyDocument extends Document<Props> {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -26,7 +26,7 @@ export default class MyDocument extends Document<Props> {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();

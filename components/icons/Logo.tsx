@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const Logo: React.FC<{}> = props => (
   <svg width="1em" height="1em" viewBox="0 0 260 260" fill="none" {...props}>

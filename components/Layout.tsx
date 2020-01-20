@@ -1,9 +1,9 @@
-import React from "react";
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import Link from "next/link";
-import { Back } from "./icons/Back";
-import { colors } from "../theme/colors";
-import { Header } from "./Header";
+import React from 'react';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import Link from 'next/link';
+import { Back } from './icons/Back';
+import { colors } from '../theme/colors';
+import { Header } from './Header';
 
 interface Props {
   title?: string;
@@ -98,7 +98,7 @@ export const Layout: React.FC<Props> = ({
   repo,
   children,
   selectedPr,
-  selectedBuild
+  selectedBuild,
 }) => (
   <ThemeProvider theme={colors}>
     <Main>

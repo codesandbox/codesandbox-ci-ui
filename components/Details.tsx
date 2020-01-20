@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { BuildInfo } from "./BuildInfo";
-import { IBuild } from "../utils/api";
+import React from 'react';
+import styled from 'styled-components';
+import { BuildInfo } from './BuildInfo';
+import { IBuild } from '../utils/api';
 
 const Container = styled.div`
   background-color: ${props => props.theme.bg2};

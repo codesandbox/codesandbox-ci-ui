@@ -1,9 +1,9 @@
-import React from "react";
-import Link from "next/link";
-import styled, { css } from "styled-components";
-import { StatusIcon } from "./StatusIcon";
-import { Status } from "../utils/api";
-import { TimeAgo } from "./TimeAgo";
+import React from 'react';
+import Link from 'next/link';
+import styled, { css } from 'styled-components';
+import { StatusIcon } from './StatusIcon';
+import { Status } from '../utils/api';
+import { TimeAgo } from './TimeAgo';
 
 const Container = styled.a<{ selected: boolean | undefined }>`
   transition: 0.2s ease background-color;
@@ -102,7 +102,7 @@ export const StatusListItem = ({
   timestamp,
   status,
   selected,
-  link
+  link,
 }: Props) => {
   return (
     <Link passHref href={link.href} as={link.as}>

@@ -6,13 +6,13 @@ export const secondsToCounter = function(totalSeconds: number) {
   // round seconds
   seconds = Math.round(seconds * 100) / 100;
 
-  let result: string = "";
+  let result: string = '';
 
   if (hours > 0) {
-    result += hours < 10 ? "0" + hours : hours;
-    result += ":";
+    result += hours < 10 ? '0' + hours : hours;
+    result += ':';
   }
-  result += minutes < 10 ? "0" + minutes : minutes;
-  result += ":" + (seconds < 10 ? "0" + seconds : seconds);
+  result += minutes < 10 ? '0' + minutes : minutes;
+  result += ':' + (seconds < 10 ? '0' + seconds : seconds);
   return result;
 };

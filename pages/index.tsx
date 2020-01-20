@@ -1,17 +1,17 @@
-import React from "react";
-import { SkeletonStatusPage } from "../components/SkeletonStatusPage";
-import { colors } from "../theme/colors";
+import React from 'react';
+import { SkeletonStatusPage } from '../components/SkeletonStatusPage';
+import { colors } from '../theme/colors';
 import {
   LEARN_MORE_DOCUMENT_URL,
-  INSTALL_GITHUB_URL
-} from "../utils/constants";
+  INSTALL_GITHUB_URL,
+} from '../utils/constants';
 import {
   Title,
   SubTitle,
   ButtonContainer,
   Link,
-  Button
-} from "../components/_elements";
+  Button,
+} from '../components/_elements';
 
 export default () => (
   <SkeletonStatusPage>
