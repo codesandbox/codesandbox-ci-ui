@@ -9,7 +9,7 @@ import { HEADER_HEIGHT } from './Header';
 import { StatusListItem } from './StatusListItem';
 import { StatusList } from './StatusList';
 import { Details } from './Details';
-import { IPR, IBuild, getPrs, getBuilds } from '../utils/api';
+import { IPR, IBuild, getPrs, getBuilds, getPr } from '../utils/api';
 import { Layout } from './Layout';
 import { SkeletonStatusPage } from './SkeletonStatusPage';
 import { useGlobalState } from '../utils/state';
@@ -267,7 +267,11 @@ StatusPage.getInitialProps = async ({
 
     prNumber = +prNumber;
 
-    const selectedPR = prs.find(pr => pr.number === prNumber);
+    let selectedPR = prs.find(pr => pr.number === prNumber);
+    if (!selectedPR) {
+      selectedPR = (await getPr(username, repo, prNumber)).pr;
+      prs.unshift(selectedPR);
+    }
     let buildId = query.buildId;
     if (!buildId) {
       buildId = selectedPR.latestBuildId;

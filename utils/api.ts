@@ -56,11 +56,19 @@ export interface IPR {
   latestBuild: IBuild;
 }
 
-interface IPRResponse {
+interface IPRsResponse {
   prs: IPR[];
 }
 
+interface IPRResponse {
+  pr: IPR;
+}
+
 const BASE_URL = 'https://gh.csb.dev/api';
+
+const prsCache = new Cache<string, Promise<{ data: IPRsResponse }>>({
+  maxAge: 1000 * 60,
+});
 
 const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
   maxAge: 1000 * 60,
@@ -69,16 +77,34 @@ const prCache = new Cache<string, Promise<{ data: IPRResponse }>>({
 export async function getPrs(
   username: string,
   repo: string
-): Promise<IPRResponse> {
+): Promise<IPRsResponse> {
   const key = `${username}/${repo}`;
-  let prsPromise = prCache.get(key);
+  let prsPromise = prsCache.get(key);
 
   if (!prsPromise) {
     prsPromise = axios.get(`${BASE_URL}/${username}/${repo}/prs`);
-    prCache.set(key, prsPromise);
+    prsCache.set(key, prsPromise);
   }
 
   const response = (await prsPromise).data;
+
+  return response;
+}
+
+export async function getPr(
+  username: string,
+  repo: string,
+  pr: string
+): Promise<IPRResponse> {
+  const key = `${username}/${repo}/${pr}`;
+  let prPromise = prCache.get(key);
+
+  if (!prPromise) {
+    prPromise = axios.get(`${BASE_URL}/${username}/${repo}/prs/${pr}`);
+    prCache.set(key, prPromise);
+  }
+
+  const response = (await prPromise).data;
 
   return response;
 }
