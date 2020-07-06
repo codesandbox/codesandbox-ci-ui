@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import styled from 'styled-components';
 import Ansi from 'ansi-to-react';
 import { Status } from '../utils/api';
@@ -56,16 +58,27 @@ const getStatusInfo = (status: Status, duration: number) => {
       };
   }
 };
+type refType = { scrollToItem(l: number): void };
 
 export const LogsContainer = ({ status, duration, log }: Props) => {
   const statusInfo = getStatusInfo(status, duration);
+  const listRef = React.createRef<refType>();
   const contentsRef = React.useRef<HTMLDivElement>();
+  const logs = (log || '').split(`\n`);
 
   useEffect(() => {
-    if (contentsRef.current) {
-      contentsRef.current.scrollTo(0, contentsRef.current.scrollHeight);
-    }
-  }, [log, contentsRef]);
+    window.requestAnimationFrame(() => {
+      if (listRef.current) {
+        listRef.current.scrollToItem(logs.length);
+      }
+    });
+  }, [logs, log, listRef]);
+
+  const Row = ({ index, style }) => (
+    <div style={{ ...style, color: '#ccc' }}>
+      <Ansi linkify={false}>{logs[index]}</Ansi>
+    </div>
+  );
 
   return (
     <BuildInfoItem
@@ -80,9 +93,19 @@ export const LogsContainer = ({ status, duration, log }: Props) => {
           style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}
         >
           {log ? (
-            <span style={{ color: '#ccc', display: 'block' }}>
-              <Ansi linkify={false}>{log}</Ansi>
-            </span>
+            <AutoSizer>
+              {({ height, width }) => (
+                <List
+                  ref={listRef}
+                  height={height}
+                  itemCount={logs.length}
+                  itemSize={16}
+                  width={width}
+                >
+                  {Row}
+                </List>
+              )}
+            </AutoSizer>
           ) : status === 'queued' ? (
             'Waiting to be built...'
           ) : (
