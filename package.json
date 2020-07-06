@@ -25,6 +25,8 @@
     "react-is": "^16.9.0",
     "react-show": "^3.0.4",
     "react-time-ago": "^5.0.4",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5",
     "styled-components": "^5.0.0-rc.1"
   },
   "devDependencies": {
