@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -26,23 +26,21 @@ export default class CodeSandboxCI extends App {
 
     return (
       <GlobalStateProvider>
-        <Container>
-          <Head>
-            <title>
-              {pageProps.title
-                ? `${pageProps.title} - CodeSandbox CI`
-                : 'CodeSandbox CI'}
-            </title>
+        <Head>
+          <title>
+            {pageProps.title
+              ? `${pageProps.title} - CodeSandbox CI`
+              : 'CodeSandbox CI'}
+          </title>
 
-            <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+          <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
 
-            <meta
-              name="description"
-              content="CodeSandbox CI is a continuous integration system built for open source library maintainers."
-            />
-          </Head>
-          <Component {...pageProps} />
-        </Container>
+          <meta
+            name="description"
+            content="CodeSandbox CI is a continuous integration system built for open source library maintainers."
+          />
+        </Head>
+        <Component {...pageProps} />
       </GlobalStateProvider>
     );
   }

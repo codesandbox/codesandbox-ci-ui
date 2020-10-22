@@ -1,3 +1,5 @@
 import { SetupPage } from '../components/SetupPage';
 
-export default () => <SetupPage />;
+const Setup = () => <SetupPage />;
+
+export default Setup;

@@ -13,7 +13,7 @@ import {
   Button,
 } from '../components/_elements';
 
-export default () => (
+const RootPage = () => (
   <SkeletonStatusPage>
     <Title>Welcome to CodeSandbox CI</Title>
     <SubTitle>A CI built for library maintainers</SubTitle>
@@ -31,3 +31,5 @@ export default () => (
     </ButtonContainer>
   </SkeletonStatusPage>
 );
+
+export default RootPage;

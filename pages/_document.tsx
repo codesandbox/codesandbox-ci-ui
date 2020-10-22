@@ -1,5 +1,5 @@
 import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
 
@@ -35,7 +35,7 @@ export default class MyDocument extends Document<Props> {
 
   render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <link
             crossOrigin="anonymous"
@@ -74,7 +74,7 @@ export default class MyDocument extends Document<Props> {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
