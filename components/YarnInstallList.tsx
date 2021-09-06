@@ -10,6 +10,9 @@ interface Props {
 
 export const YarnInstallList = ({ style, packages }: Props) => {
   const packageLinks = packages.map(p => p.url).join(' ');
+  const yarn2PackageLinks = packages
+    .map(p => `${p.name}@${p.url}/_pkg.tgz`)
+    .join(' ');
   return (
     <BuildInfoItem
       collapsible
@@ -25,11 +28,7 @@ export const YarnInstallList = ({ style, packages }: Props) => {
         <br />
         # yarn 2, 3
         <br />
-        yarn add{' '}
-        {packageLinks
-          .split(' ')
-          .map(link => `${link}/_pkg.tgz`)
-          .join(' ')}
+        yarn add {yarn2PackageLinks}
         <br />
         # npm
         <br />
