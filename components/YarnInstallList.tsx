@@ -19,7 +19,19 @@ export const YarnInstallList = ({ style, packages }: Props) => {
       title="Local Install Instructions"
     >
       <CodeBlock>
+        # yarn 1
+        <br />
         yarn add {packageLinks}
+        <br />
+        # yarn 2, 3
+        <br />
+        yarn add{' '}
+        {packageLinks
+          .split(' ')
+          .map(link => `${link}/_pkg.tgz`)
+          .join(' ')}
+        <br />
+        # npm
         <br />
         npm i {packageLinks}
       </CodeBlock>
