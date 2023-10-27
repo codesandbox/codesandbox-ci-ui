@@ -102,7 +102,7 @@ export const Layout: React.FC<Props> = ({
 }) => (
   <ThemeProvider theme={colors}>
     <Main>
-      <GlobalStyles />
+      <GlobalStyles theme={colors} />
       <Header
         owner={username}
         repo={repo}

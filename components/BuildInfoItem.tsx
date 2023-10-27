@@ -101,7 +101,9 @@ export const BuildInfoItem: React.FC<Props> = ({
 }) => {
   const [show, setShow] = React.useState(expandedByDefault);
 
-  const HeaderComponent = collapsible ? HeaderButton : Header;
+  const HeaderComponent = (collapsible
+    ? HeaderButton
+    : Header) as React.ElementType;
   return (
     <div style={style}>
       <HeaderComponent
