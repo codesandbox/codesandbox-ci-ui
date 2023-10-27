@@ -12,7 +12,6 @@
     "lint": "eslint --ext .jsx,.js,.tsx,.ts --ignore-path .gitignore ./components/ ./pages/ ./utils/"
   },
   "dependencies": {
-    "@codesandbox/common": "^1.0.5",
     "amplitude-js": "^5.6.0",
     "ansi-to-react": "^5.0.0",
     "axios": "^0.21.2",

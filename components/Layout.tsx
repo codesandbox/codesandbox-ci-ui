@@ -114,6 +114,7 @@ export const Layout: React.FC<Props> = ({
           <Link
             href={`/status/[username]/[repo]`}
             as={`/status/${username}/${repo}`}
+            legacyBehavior
           >
             <a>
               <Back /> Back to Pull Requests
@@ -126,6 +127,7 @@ export const Layout: React.FC<Props> = ({
           <Link
             href={`/status/[username]/[repo]/pr/[prNumber]`}
             as={`/status/${username}/${repo}/pr/${selectedPr}`}
+            legacyBehavior
           >
             <a>
               <Back /> Back to PR #{selectedPr}
