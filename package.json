@@ -24,7 +24,7 @@
     "react-hooks-global-state": "^0.14.0",
     "react-is": "^18.2.0",
     "react-show": "^3.0.4",
-    "react-time-ago": "^5.0.4",
+    "react-time-ago": "^7.2.1",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "styled-components": "^6.1.0"
