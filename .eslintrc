@@ -2,6 +2,6 @@
   "extends": "react-app",
   "rules": {
     // Next makes us put empty links inside the <Link>
-    "jsx-a11y/anchor-is-valid": "never"
+    "jsx-a11y/anchor-is-valid": 0
   }
 }
