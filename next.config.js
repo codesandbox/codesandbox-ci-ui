@@ -1,3 +1,5 @@
 module.exports = {
-  serverless: true,
+  compiler: {
+    styledComponents: true,
+  },
 };
