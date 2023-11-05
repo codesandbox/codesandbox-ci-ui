@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import JavascriptTimeAgo from "javascript-time-ago";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import JavascriptTimeAgo from 'javascript-time-ago';
 // The desired locales.
-import en from "javascript-time-ago/locale/en";
+import en from 'javascript-time-ago/locale/en';
 
-import { HEADER_HEIGHT } from "./Header";
-import { StatusListItem } from "./StatusListItem";
-import { StatusList } from "./StatusList";
-import { Details } from "./Details";
-import { IPR, IBuild, getPrs, getBuilds, getPr } from "../utils/api";
-import { Layout } from "./Layout";
-import { SkeletonStatusPage } from "./SkeletonStatusPage";
-import { useGlobalState } from "../utils/state";
-import { colors } from "../theme/colors";
+import { HEADER_HEIGHT } from './Header';
+import { StatusListItem } from './StatusListItem';
+import { StatusList } from './StatusList';
+import { Details } from './Details';
+import { IPR, IBuild, getPrs, getBuilds, getPr } from '../utils/api';
+import { Layout } from './Layout';
+import { SkeletonStatusPage } from './SkeletonStatusPage';
+import { useGlobalState } from '../utils/state';
+import { colors } from '../theme/colors';
 import {
   LEARN_MORE_DOCUMENT_URL,
-  INSTALL_GITHUB_URL
-} from "../utils/constants";
-import { BUILD_LINK, buildLink, PR_LINK, prLink } from "../utils/url";
-import { SetupPage } from "./SetupPage";
-import { Button } from "./_elements";
+  INSTALL_GITHUB_URL,
+} from '../utils/constants';
+import { BUILD_LINK, buildLink, PR_LINK, prLink } from '../utils/url';
+import { SetupPage } from './SetupPage';
+import { Button } from './_elements';
 
 // Initialize the desired locales.
 JavascriptTimeAgo.locale(en);
@@ -44,7 +44,7 @@ const ErrorMessage = styled.p`
 const WrapperPRS = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
     display: ${props =>
-      props.selectedPr || props.selectedBuild ? "none" : "block"};
+      props.selectedPr || props.selectedBuild ? 'none' : 'block'};
     width: 100%;
   }
 `;
@@ -52,14 +52,14 @@ const WrapperPRS = styled.div<WrapperProps>`
 const WrapperBuilds = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
     display: ${props =>
-      !props.selectedPr || props.selectedBuild ? "none" : "block"};
+      !props.selectedPr || props.selectedBuild ? 'none' : 'block'};
     width: 100%;
   }
 `;
 
 const WrapperDetails = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
-    display: ${props => (!props.selectedBuild ? "none" : "block")};
+    display: ${props => (!props.selectedBuild ? 'none' : 'block')};
   }
   width: 100%;
   overflow: hidden;
@@ -86,9 +86,9 @@ const StatusPage = ({
   builds,
   notFound,
   showSetup,
-  error
+  error,
 }: StatusPageProps) => {
-  const [statePrs, setPrs] = useGlobalState("prs");
+  const [statePrs, setPrs] = useGlobalState('prs');
   const usedPrs = statePrs || prs;
   const { query: params } = useRouter();
 
@@ -104,9 +104,9 @@ const StatusPage = ({
     return (
       <SkeletonStatusPage>
         <ErrorMessage>
-          {typeof error === "string"
+          {typeof error === 'string'
             ? error
-            : "We could not find the repository you were looking for, have you installed the GitHub App?"}
+            : 'We could not find the repository you were looking for, have you installed the GitHub App?'}
         </ErrorMessage>
 
         <Button href={INSTALL_GITHUB_URL}>Install GitHub App</Button>
@@ -178,7 +178,7 @@ const StatusPage = ({
                 selected={pr.number === selectedPrNumber}
                 link={{
                   href: PR_LINK,
-                  as: prLink(username, repo, pr.number)
+                  as: prLink(username, repo, pr.number),
                 }}
               />
             ))}
@@ -199,7 +199,7 @@ const StatusPage = ({
                 selected={build.id === selectedBuildId}
                 link={{
                   href: BUILD_LINK,
-                  as: buildLink(username, repo, selectedPrNumber, build.id)
+                  as: buildLink(username, repo, selectedPrNumber, build.id),
                 }}
               />
             ))}
@@ -224,7 +224,7 @@ const StatusPage = ({
 function getTitle(username: string, repo: string, buildId?: number) {
   let title = `${username}/${repo}`;
 
-  if (typeof buildId !== "undefined") {
+  if (typeof buildId !== 'undefined') {
     title += ` #${buildId}`;
   }
 
@@ -233,23 +233,24 @@ function getTitle(username: string, repo: string, buildId?: number) {
 
 StatusPage.getInitialProps = async ({
   query,
-  res
+  res,
 }): Promise<
   { title?: string } & (
     | StatusPageProps
     | { notFound: true; error?: string }
     | { showSetup: true }
-    | { error: true })
+    | { error: true }
+  )
 > => {
   try {
     const { username, repo } = query;
 
     if (!username) {
-      throw new Error("Please define a username");
+      throw new Error('Please define a username');
     }
 
     if (!repo) {
-      throw new Error("Please define a repo");
+      throw new Error('Please define a repo');
     }
 
     const { prs } = await getPrs(username, repo);
@@ -257,7 +258,7 @@ StatusPage.getInitialProps = async ({
     if (prs.length === 0) {
       // No PRs have been registered yet
 
-      return { showSetup: true, title: "CodeSandbox CI Installed" };
+      return { showSetup: true, title: 'CodeSandbox CI Installed' };
     }
 
     let prNumber = query.prNumber;
@@ -274,7 +275,7 @@ StatusPage.getInitialProps = async ({
       } catch (e) {
         return {
           notFound: true,
-          error: "We could not find the PR you were looking for"
+          error: 'We could not find the PR you were looking for',
         };
       }
       prs.unshift(selectedPR);
@@ -302,7 +303,7 @@ StatusPage.getInitialProps = async ({
             repo,
             selectedPR.number,
             selectedPR.latestBuild.id
-          )
+          ),
         });
         res.end();
         return;
@@ -316,7 +317,7 @@ StatusPage.getInitialProps = async ({
       builds,
       selectedPrNumber: prNumber,
       selectedBuildId: buildId,
-      title: getTitle(username, repo, buildId)
+      title: getTitle(username, repo, buildId),
     };
   } catch (e) {
     console.error(e);
@@ -326,7 +327,7 @@ StatusPage.getInitialProps = async ({
       }
 
       if (e.response.status === 404) {
-        return { notFound: true, title: "Not Found" };
+        return { notFound: true, title: 'Not Found' };
       } else {
         return { error: true };
       }
