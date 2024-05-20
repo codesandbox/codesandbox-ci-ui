@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const TimeAgo = ({ date, ...props }: Props) => (
-  <span title={new Date(date).toString()}>
-    <ReactTimeAgo date={date} {...props} />
+  <span suppressHydrationWarning title={new Date(date).toString()}>
+    <ReactTimeAgo suppressHydrationWarning date={date} {...props} />
   </span>
 );

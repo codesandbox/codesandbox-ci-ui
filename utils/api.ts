@@ -94,7 +94,7 @@ export async function getPrs(
 export async function getPr(
   username: string,
   repo: string,
-  pr: string
+  pr: number
 ): Promise<IPRResponse> {
   const key = `${username}/${repo}/${pr}`;
   let prPromise = prCache.get(key);
