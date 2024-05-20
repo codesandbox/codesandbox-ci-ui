@@ -1,29 +1,32 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import JavascriptTimeAgo from "javascript-time-ago";
-// The desired locales.
-import en from "javascript-time-ago/locale/en";
+'use client';
 
-import { HEADER_HEIGHT } from "./Header";
-import { StatusListItem } from "./StatusListItem";
-import { StatusList } from "./StatusList";
-import { Details } from "./Details";
-import { IPR, IBuild, getPrs, getBuilds, getPr } from "../utils/api";
-import { Layout } from "./Layout";
-import { SkeletonStatusPage } from "./SkeletonStatusPage";
-import { useGlobalState } from "../utils/state";
-import { colors } from "../theme/colors";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import JavascriptTimeAgo from 'javascript-time-ago';
+// The desired locales.
+import en from 'javascript-time-ago/locale/en';
+
+import { HEADER_HEIGHT } from './Header';
+import { StatusListItem } from './StatusListItem';
+import { StatusList } from './StatusList';
+import { Details } from './Details';
+import { IPR, IBuild, getPrs, getBuilds, getPr } from '../utils/api';
+import { Layout } from './Layout';
+import { SkeletonStatusPage } from './SkeletonStatusPage';
+import { useGlobalState } from '../utils/state';
+import { colors } from '../theme/colors';
 import {
   LEARN_MORE_DOCUMENT_URL,
-  INSTALL_GITHUB_URL
-} from "../utils/constants";
-import { BUILD_LINK, buildLink, PR_LINK, prLink } from "../utils/url";
-import { SetupPage } from "./SetupPage";
-import { Button } from "./_elements";
+  INSTALL_GITHUB_URL,
+} from '../utils/constants';
+import { BUILD_LINK, buildLink, PR_LINK, prLink } from '../utils/url';
+import { SetupPage } from './SetupPage';
+import { Button } from './_elements';
+import { useParams } from 'next/navigation';
 
 // Initialize the desired locales.
-JavascriptTimeAgo.locale(en);
+JavascriptTimeAgo.addLocale(en);
 
 type WrapperProps = {
   selectedPr?: string | string[];
@@ -44,7 +47,7 @@ const ErrorMessage = styled.p`
 const WrapperPRS = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
     display: ${props =>
-      props.selectedPr || props.selectedBuild ? "none" : "block"};
+      props.selectedPr || props.selectedBuild ? 'none' : 'block'};
     width: 100%;
   }
 `;
@@ -52,14 +55,14 @@ const WrapperPRS = styled.div<WrapperProps>`
 const WrapperBuilds = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
     display: ${props =>
-      !props.selectedPr || props.selectedBuild ? "none" : "block"};
+      !props.selectedPr || props.selectedBuild ? 'none' : 'block'};
     width: 100%;
   }
 `;
 
 const WrapperDetails = styled.div<WrapperProps>`
   @media screen and (max-width: 768px) {
-    display: ${props => (!props.selectedBuild ? "none" : "block")};
+    display: ${props => (!props.selectedBuild ? 'none' : 'block')};
   }
   width: 100%;
   overflow: hidden;
@@ -86,9 +89,9 @@ const StatusPage = ({
   builds,
   notFound,
   showSetup,
-  error
+  error,
 }: StatusPageProps) => {
-  const [statePrs, setPrs] = useGlobalState("prs");
+  const [statePrs, setPrs] = useGlobalState('prs');
   const usedPrs = statePrs || prs;
   const { query: params } = useRouter();
 
@@ -104,9 +107,9 @@ const StatusPage = ({
     return (
       <SkeletonStatusPage>
         <ErrorMessage>
-          {typeof error === "string"
+          {typeof error === 'string'
             ? error
-            : "We could not find the repository you were looking for, have you installed the GitHub App?"}
+            : 'We could not find the repository you were looking for, have you installed the GitHub App?'}
         </ErrorMessage>
 
         <Button href={INSTALL_GITHUB_URL}>Install GitHub App</Button>
@@ -178,7 +181,7 @@ const StatusPage = ({
                 selected={pr.number === selectedPrNumber}
                 link={{
                   href: PR_LINK,
-                  as: prLink(username, repo, pr.number)
+                  as: prLink(username, repo, pr.number),
                 }}
               />
             ))}
@@ -199,7 +202,7 @@ const StatusPage = ({
                 selected={build.id === selectedBuildId}
                 link={{
                   href: BUILD_LINK,
-                  as: buildLink(username, repo, selectedPrNumber, build.id)
+                  as: buildLink(username, repo, selectedPrNumber, build.id),
                 }}
               />
             ))}
@@ -221,35 +224,61 @@ const StatusPage = ({
   );
 };
 
+export const ClientSideStatusPage = () => {
+  const [data, setData] = useState(undefined);
+  const { query: params } = useRouter();
+
+  useEffect(() => {
+    if (!params.username) {
+      return;
+    }
+
+    fetchData(params).then(data => {
+      setData(data);
+    });
+  }, [params]);
+
+  if (!data) {
+    return;
+  }
+
+  if (data.notFound) {
+    // @ts-expect-error
+    return <StatusPage notFound />;
+  }
+
+  if (data.error) {
+    // @ts-expect-error
+    return <StatusPage error={data.error} />;
+  }
+
+  return <StatusPage {...data.props} />;
+};
+
 function getTitle(username: string, repo: string, buildId?: number) {
   let title = `${username}/${repo}`;
 
-  if (typeof buildId !== "undefined") {
+  if (typeof buildId !== 'undefined') {
     title += ` #${buildId}`;
   }
 
   return title;
 }
 
-StatusPage.getInitialProps = async ({
-  query,
-  res
-}): Promise<
-  { title?: string } & (
-    | StatusPageProps
-    | { notFound: true; error?: string }
-    | { showSetup: true }
-    | { error: true })
-> => {
+export const getServerSideProps = async ({ query, res }) => {
+  return fetchData(query, res);
+};
+
+export const fetchData = async (query, res = undefined) => {
   try {
     const { username, repo } = query;
 
-    if (!username) {
-      throw new Error("Please define a username");
+    if (!username || Array.isArray(username)) {
+      throw new Error('Please define a username');
     }
 
-    if (!repo) {
-      throw new Error("Please define a repo");
+    if (!repo || Array.isArray(repo)) {
+      throw new Error('Please define a repo');
     }
 
     const { prs } = await getPrs(username, repo);
@@ -257,10 +286,14 @@ StatusPage.getInitialProps = async ({
     if (prs.length === 0) {
       // No PRs have been registered yet
 
-      return { showSetup: true, title: "CodeSandbox CI Installed" };
+      return { showSetup: true, title: 'CodeSandbox CI Installed' };
     }
 
-    let prNumber = query.prNumber;
+    let prNumber =
+      query.prNumber && !Array.isArray(query.prNumber)
+        ? +query.prNumber
+        : undefined;
+
     if (!prNumber) {
       prNumber = prs[0].number;
     }
@@ -274,16 +307,15 @@ StatusPage.getInitialProps = async ({
       } catch (e) {
         return {
           notFound: true,
-          error: "We could not find the PR you were looking for"
+          error: 'We could not find the PR you were looking for',
         };
       }
       prs.unshift(selectedPR);
     }
-    let buildId = query.buildId;
-    if (!buildId) {
-      buildId = selectedPR.latestBuildId;
-    }
-    buildId = +buildId;
+    let buildId =
+      query.buildId && !Array.isArray(query.buildId)
+        ? +query.buildId
+        : selectedPR.latestBuildId;
 
     const { builds } = await getBuilds(username, repo, prNumber);
 
@@ -302,7 +334,7 @@ StatusPage.getInitialProps = async ({
             repo,
             selectedPR.number,
             selectedPR.latestBuild.id
-          )
+          ),
         });
         res.end();
         return;
@@ -310,23 +342,22 @@ StatusPage.getInitialProps = async ({
     }
 
     return {
-      username,
-      repo,
-      prs,
-      builds,
-      selectedPrNumber: prNumber,
-      selectedBuildId: buildId,
-      title: getTitle(username, repo, buildId)
+      props: {
+        username,
+        repo,
+        prs,
+        builds,
+        selectedPrNumber: prNumber,
+        selectedBuildId: buildId,
+        title: getTitle(username, repo, buildId),
+      },
     };
   } catch (e) {
     console.error(e);
-    if (e.response) {
-      if (res) {
-        res.status = e.response.status;
-      }
 
+    if (e.response) {
       if (e.response.status === 404) {
-        return { notFound: true, title: "Not Found" };
+        return { notFound: true, title: 'Not Found' };
       } else {
         return { error: true };
       }

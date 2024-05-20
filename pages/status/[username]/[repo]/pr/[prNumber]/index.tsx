@@ -1,3 +1,8 @@
-import { StatusPage } from '../../../../../../components/StatusPage';
+import {
+  StatusPage,
+  ClientSideStatusPage,
+  getServerSideProps,
+} from '../../../../../../components/StatusPage';
 
-export default StatusPage;
+// export { getServerSideProps };
+export default ClientSideStatusPage;
