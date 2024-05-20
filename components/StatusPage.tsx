@@ -313,7 +313,7 @@ export const fetchData = async (query, res = undefined) => {
       prs.unshift(selectedPR);
     }
     let buildId =
-      query.buildId && Array.isArray(query.buildId)
+      query.buildId && !Array.isArray(query.buildId)
         ? +query.buildId
         : selectedPR.latestBuildId;
 
